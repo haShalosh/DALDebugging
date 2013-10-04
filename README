@@ -1,0 +1,10 @@
+README
+
+About:
+These are classes and functions I came up with to help me while debugging.
+
+After you add them to your project, and configure the 1 non-ARC file to not use ARC,
+The easiest way to use these is with the NSObject+Introspection category.
+
+You can ask any class what ivars, properties or methods that it has.
+If you ask the instance, it will recusively tell you all the ivars, properties or methods it has, and try to get the value of it.
