@@ -1,8 +1,27 @@
 //
-//  DALDebugging
 //  DALIntrospection-fno-objc-arc.m
+//  DALDebugging
 //
-//  Created by Daniel Leber, 2013.
+//  Created by Daniel Leber on 10/19/13.
+//  Copyright (c) 2013 Daniel Leber. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to
+//  deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+//  sell copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+//  IN THE SOFTWARE.
 //
 
 #if DEBUG
@@ -16,7 +35,8 @@
 #error Error! This class does not support ARC. Disable with: -fno-objc-arc
 #endif
 
-NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod) // Will ignore Methods that take parameters
+/// \brief Will ignore Methods that take parameters
+NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 {
 	SEL selector = method_getName(aMethod);
 	
@@ -534,7 +554,7 @@ NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar)
 				{
 					void *result;
 					result = (void *)object_getIvar(instance, anIvar);
-					description = @"TODO Implemented determining type for (void *)";
+					description = @"TODO Implement determining type for (void *)";
 				}
 					break;
 					
@@ -737,7 +757,8 @@ const char *DALNewTypesForMethod(Method aMethod)
 	size_t bufferLength = 10240;
 	unsigned numberOfArguments = method_getNumberOfArguments(aMethod);
 	
-	char *types = malloc(bufferLength * (numberOfArguments + 1));
+	size_t lengthOfTypes = bufferLength * (numberOfArguments + 1);
+	char *types = malloc(lengthOfTypes);
 	
 	char *returnType = malloc(bufferLength);
 	method_getReturnType(aMethod, returnType, bufferLength);
@@ -754,12 +775,11 @@ const char *DALNewTypesForMethod(Method aMethod)
 	}
 	
 	free(returnType);
-	free(types);
 	
 	return types;
 }
 
-// Swizzled method logging
+#pragma mark - Swizzled method logging
 void DALRetainAutorelease(id instance)
 {
 	SEL retainSelector = ({

@@ -1,0 +1,56 @@
+README
+
+About:
+These are functions and classes I came up with to help me with debugging.
+
+
+
+Configuration:
+DALIntrospection.m requires ARC enabled (I have made no attempt to make it non-ARC compatible).
+DALIntrospection-fno-objc-arc.m requires ARC disabled (will not work with it at all).
+
+
+
+Some things the following categories can do:
+
+NSObject+DALDebugging.h:
+You can ask any class what ivars, properties or methods that it has.
+If you ask the instance, it will recusively tell you all the ivars, properties or methods it has, and try to get the value of them.
+
+NSProxy+DALDebugging.h:
+Identifical to NSObject+DALDebugging.h (since NSProxy is not a subclass of NSObject).
+
+UIImage+DALDebugging.h:
+Save the image to the Documents folder. Useful if you can't see an image view.
+
+UIView+DALDebugging.h:
+Create an image and save it to the Documents folder.
+Get the View Controller of the view, if it is the view of a view controller.
+
+UIWindow+DALDebugging.h
+(Effectively) Toggle slow animations on device.
+
+
+
+Examples in the console:
+
+Stopped at a breakpoint in any of your classes: po [self ivarsDescription]
+Stopped at a breakpoint in a View Controller with a collection view: [self.collectionView ivarsDescription];
+
+If you have a view's memory address (possibly gotten from KeyWindowDescription() or using Reveal App), you can get it's property names: po [0xMEMORY_ADDRESS propertyNames]
+
+
+
+More Debugging Fun:
+
+Create an Objective-C breakpoint:
+Select the Breakpoint Navigator (Xcode 5: COMMAND+7)
+In the bottom-left click the + button
+Click: Add Exception Breakpoint...
+Right-click on the "All Exceptions" breakpoint and click: Edit Breakpoint...
+Change "Exception (All)" to "Exception (Objective-C)
+Now, anytime an NSExeption is thrown or NSAssert is caught, you will stop on the line in your code.
+
+
+Listen to all posted notifications:
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(allNotifications:) name:nil object:nil];

@@ -1,8 +1,27 @@
 //
-//  DALDebugging
 //  DALIntrospection.m
+//  DALDebugging
 //
-//  Created by Daniel Leber, 2013.
+//  Created by Daniel Leber on 10/19/13.
+//  Copyright (c) 2013 Daniel Leber. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to
+//  deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+//  sell copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+//  IN THE SOFTWARE.
 //
 
 #if DEBUG
@@ -10,6 +29,7 @@
 #import "DALIntrospection.h"
 #import "DALIntrospection+Helper.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 #import "ApplePrivate.h"
 
 NSString * const DALSwizzledPrefix = @"DALSwizzled_";
@@ -763,6 +783,7 @@ NSString *DALDescriptionOfPropertyAttributeType(objc_property_attribute_t attrib
 			break;
 		case 0:
 			description = @"(null)";
+			break;
 			
 		default:
 			description = [NSString stringWithFormat:@"Unknown type: %s", name];
@@ -770,6 +791,77 @@ NSString *DALDescriptionOfPropertyAttributeType(objc_property_attribute_t attrib
 	}
 	
 	return description;
+}
+
+NSString *DALBinaryRepresentationOfNSInteger(NSInteger anInteger)
+{
+#warning TODO: Test this
+    NSMutableString * string = [[NSMutableString alloc] init];
+	
+    NSInteger spacing = pow(2, 3);
+    NSInteger width = sizeof(anInteger) * spacing;
+    NSInteger binaryDigit = 0;
+    NSInteger integer = anInteger;
+	
+    while (binaryDigit < width)
+    {
+        binaryDigit++;
+		
+		NSString *digit = (integer & 1) ? @"1" : @"0";
+        [string insertString:digit atIndex:0];
+		
+        if ( (binaryDigit % spacing == 0) && (binaryDigit != width) )
+        {
+            [string insertString:@" " atIndex:0];
+        }
+		
+        integer = integer >> 1;
+    }
+	
+    return string;
+}
+
+NSDictionary *DALPropertyNamesAndValuesMemoryAddressesForObject(NSObject *instance)
+{
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+	
+	Class theClass = [instance class];
+	while (theClass)
+	{
+		unsigned int numberOfProperties = 0;
+		objc_property_t *properties = class_copyPropertyList(theClass, &numberOfProperties);
+		for (unsigned int i = 0; i < numberOfProperties; i++)
+		{
+			objc_property_t property = properties[i];
+			
+			char *attributeValueType = property_copyAttributeValue(property, "T");
+			if (attributeValueType[0] == '@')
+			{
+				const char *propertyNameChar = property_getName(property);
+				NSString *name = [NSString stringWithFormat:@"%s", propertyNameChar];
+				
+				id propertyValue = nil;
+				NSString *selectorString = name;
+				
+				char *customGetterChar = property_copyAttributeValue(property, "G");
+				if (customGetterChar && strlen(customGetterChar) > 0)
+					selectorString = [NSString stringWithFormat:@"%s", customGetterChar];
+				
+				SEL selector = NSSelectorFromString(selectorString);
+				propertyValue = objc_msgSend(instance, selector);
+				if (propertyValue)
+				{
+					NSString *key = [NSString stringWithFormat:@"%@ in class %@", name, NSStringFromClass(theClass)];
+					NSString *valueMemoryAddress = [NSString stringWithFormat:@"%p", propertyValue];
+					dictionary[key] = valueMemoryAddress;
+				}
+			}
+		}
+		
+		theClass = [theClass superclass];
+	}
+	
+	return dictionary;
 }
 
 SEL DALSelectorForPropertyOfClass(objc_property_t property, Class aClass)
