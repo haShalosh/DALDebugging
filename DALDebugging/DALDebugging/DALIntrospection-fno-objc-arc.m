@@ -41,16 +41,13 @@ NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 	SEL selector = method_getName(aMethod);
 	
 	int returnTypeLength = 1024 * 10;
-	char *returnTypeChar = malloc(returnTypeLength);
+	char returnTypeChar[returnTypeLength];
 	
 	method_getReturnType(aMethod, returnTypeChar, returnTypeLength);
 	
 	u_int numberOfArguments = method_getNumberOfArguments(aMethod);
 	if (numberOfArguments > 2)
-	{
-		free(returnTypeChar);
 		return @"(ignored)";
-	}
 	
 	NSString *description = nil;
 	switch (returnTypeChar[0])
@@ -163,7 +160,6 @@ NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 #else
 			DALInvokeMethodForResult(instance, aMethod, &result);
 			description = [NSString stringWithFormat:@"%f", result];
-			description = DALDescriptionForUnsupportedType(returnTypeChar);
 #endif
         }
 			break;
@@ -177,16 +173,16 @@ NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 #else
 			DALInvokeMethodForResult(instance, aMethod, &result);
 			description = [NSString stringWithFormat:@"%f", result];
-			description = DALDescriptionForUnsupportedType(returnTypeChar);
 #endif
         }
 			break;
 			
 		case _C_BFLD:     // 'b'
 		{
-			void *result;
-			result = objc_msgSend(instance, selector);
-			description = [NSString stringWithFormat:@"bitfield result is currently unsupported"];
+#warning TODO: Test this
+			NSUInteger result;
+			result = (NSUInteger)objc_msgSend(instance, selector);
+			description = DALBinaryRepresentationOfNSUInteger(result);
 		}
 			break;
 			
@@ -213,7 +209,8 @@ NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 			{
 				case '{':
 				{
-					if (strcmp(returnTypeChar, "^{CGColor=}"))
+                    NSString *returnType = [NSString stringWithUTF8String:returnTypeChar];
+					if ([returnType hasPrefix:@"^{CGColor="])
 					{
 						CGColorRef result = NULL;
 						DALInvokeMethodForResult(instance, aMethod, &result);
@@ -226,7 +223,7 @@ NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 				{
 					void *result = NULL;
 					DALInvokeMethodForResult(instance, aMethod, &result);
-					description = @"TODO Implemented determining type for (void *)";
+					description = @"(TODO Implemented determining type for void *)";
 				}
 					break;
 					
@@ -322,11 +319,6 @@ NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 			NSLog(@"*** %@", description);
 			break;
 	}
-	
-	free(returnTypeChar);
-	
-	if (!description)
-		NSLog(@"*** Error! No description for: %@", instance);
 	
 	return description;
 }
@@ -554,7 +546,7 @@ NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar)
 				{
 					void *result;
 					result = (void *)object_getIvar(instance, anIvar);
-					description = @"TODO Implement determining type for (void *)";
+					description = [NSString stringWithFormat:@"%p", result];
 				}
 					break;
 					
@@ -566,7 +558,12 @@ NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar)
 			break;
 			
 		case _C_CHARPTR:  // '*'
-			description = DALDescriptionForUnsupportedType(type);
+        {
+#warning TODO: Test this
+            char *result;
+			result = (char *)object_getIvar(instance, anIvar);
+			description = [NSString stringWithUTF8String:result];
+        }
 			break;
 			
 		case _C_ATOM:     // '%'
@@ -624,8 +621,8 @@ NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar)
 			}
 			else
 			{
-				NSLog(@"*** struct not supported: %s", type);
-				description = @"Not yet supported...";
+                // TODO: Implement this
+				description = @"(Unsupported struct...)";
 			}
 		}
 			break;
@@ -650,9 +647,6 @@ NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar)
 			description = [NSString stringWithFormat:@"Warning! Unexpected return type: %s", type];
 			break;
 	}
-	
-	if (!description)
-		NSLog(@"*** Error! No description for: %@", instance);
 	
 	return description;
 }
@@ -732,7 +726,7 @@ void DALInvokeMethodForResult(id instance, Method aMethod, void *result)
 	}
 	else
 	{
-		const char *types = DALNewTypesForMethod(aMethod);
+		char *types = DALTypesForMethod(aMethod);
 		
 		NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:types];
 		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
@@ -749,32 +743,32 @@ void DALInvokeMethodForResult(id instance, Method aMethod, void *result)
 			NSString *objectString = NSStringFromClass([instance class]);
 			NSLog(@"Warning! Unable to invoke selector '%@' on class '%@'. Exception: %@", selectorString, objectString, exception);
 		}
+        
+        free(types);
 	}
 }
 
-const char *DALNewTypesForMethod(Method aMethod)
+char *DALTypesForMethod(Method aMethod)
 {
+    char *types;
+    
 	size_t bufferLength = 10240;
 	unsigned numberOfArguments = method_getNumberOfArguments(aMethod);
 	
 	size_t lengthOfTypes = bufferLength * (numberOfArguments + 1);
-	char *types = malloc(lengthOfTypes);
+	types = malloc(lengthOfTypes);
 	
-	char *returnType = malloc(bufferLength);
+	char returnType[bufferLength];
 	method_getReturnType(aMethod, returnType, bufferLength);
 	
 	strcat(types, returnType);
 	
 	for (unsigned int argumentIndex = 0; argumentIndex < numberOfArguments; argumentIndex++)
 	{
-		char *argumentType = malloc(bufferLength);
+		char argumentType[bufferLength];
 		method_getArgumentType(aMethod, argumentIndex, argumentType, bufferLength);
 		strcat(types, argumentType);
-		
-		free(argumentType);
 	}
-	
-	free(returnType);
 	
 	return types;
 }
@@ -782,33 +776,33 @@ const char *DALNewTypesForMethod(Method aMethod)
 #pragma mark - Swizzled method logging
 void DALRetainAutorelease(id instance)
 {
-	SEL retainSelector = ({
-		SEL sel = NULL;
-		
-		NSString *string = @"retain";
-		SEL swizzledSel = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:string]);
-		if ([instance respondsToSelector:swizzledSel])
-		{
-			sel = swizzledSel;
-		}
-		else
-			sel = NSSelectorFromString(string);
-		
-		sel;
-	});
-	SEL autoreleaseSelector = ({
-		SEL sel = NULL;
-		
-		NSString *string = @"autorelease";
-		SEL swizzledSel = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:string]);
-		if ([instance respondsToSelector:swizzledSel])
-		{
-			sel = swizzledSel;
-		}
-		else
-			sel = NSSelectorFromString(string);
-		sel;
-	});
+//	SEL retainSelector = ({
+//		SEL sel = NULL;
+//		
+//		NSString *string = @"retain";
+//		SEL swizzledSel = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:string]);
+//		if ([instance respondsToSelector:swizzledSel])
+//		{
+//			sel = swizzledSel;
+//		}
+//		else
+//			sel = NSSelectorFromString(string);
+//		
+//		sel;
+//	});
+//	SEL autoreleaseSelector = ({
+//		SEL sel = NULL;
+//		
+//		NSString *string = @"autorelease";
+//		SEL swizzledSel = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:string]);
+//		if ([instance respondsToSelector:swizzledSel])
+//		{
+//			sel = swizzledSel;
+//		}
+//		else
+//			sel = NSSelectorFromString(string);
+//		sel;
+//	});
 //	[[object performSelector:retainSelector] performSelector:autoreleaseSelector];
 }
 
@@ -824,7 +818,7 @@ void DALSwizzleInstanceMethodsForClass(Class aClass)
 		SEL name = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:NSStringFromSelector(originalName)]);
 		IMP imp = imp_implementationWithBlock(DALImplementationBlockForMethod(aMethod, name, originalName));
 		
-		const char *types = DALNewTypesForMethod(aMethod);
+		char *types = DALTypesForMethod(aMethod);
 		
 		if (class_addMethod(aClass, name, imp, types))
 		{
@@ -837,7 +831,7 @@ void DALSwizzleInstanceMethodsForClass(Class aClass)
 			NSLog(@"*** Error! Unable to add method: %@", NSStringFromSelector(name));
 		}
 		
-		free((void *)types);
+		free(types);
 	}
 }
 
@@ -847,7 +841,7 @@ id DALImplementationBlockForMethod(Method aMethod, SEL swizzledSelector, SEL ori
 	
 	unsigned numberOfArguments = method_getNumberOfArguments(aMethod) - 2;
 	
-	char *returnType = malloc(1);
+	char returnType[1];
 	method_getReturnType(aMethod, returnType, 1);
 	switch (returnType[0])
 	{
@@ -863,7 +857,6 @@ id DALImplementationBlockForMethod(Method aMethod, SEL swizzledSelector, SEL ori
 			block = DALBlockWithIdReturnAndNumberOfArguments(numberOfArguments, swizzledSelector, originalSelector);
 			break;
 	}
-	free(returnType);
 	
 	return block;
 }

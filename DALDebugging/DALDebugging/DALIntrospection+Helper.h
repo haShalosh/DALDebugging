@@ -34,9 +34,13 @@ NSString *DALDescriptionOfProtocolsForClass(Class aClass);
 NSString *DALDescriptionOfReturnOrParameterType(const char *type);
 NSString *DALDescriptionOfPropertyAttributeType(objc_property_attribute_t attribute);
 NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar);
+
 NSString *DALBinaryRepresentationOfNSInteger(NSInteger anInteger);
+NSString *DALBinaryRepresentationOfNSUInteger(NSUInteger anUnsignedInteger);
+
 SEL DALSelectorForPropertyOfClass(objc_property_t property, Class aClass);
-const char *DALNewTypesForMethod(Method aMethod);
+char *DALTypesForMethod(Method aMethod); // Must free() the return value when done.
+
 NSDictionary *DALPropertyNamesAndValuesMemoryAddressesForObject(NSObject *instance);
 
 #pragma mark -fno-objc-arc

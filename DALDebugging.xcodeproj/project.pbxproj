@@ -557,6 +557,7 @@
 				4892ABA218130D2700AEBFCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4892ABA318130D2700AEBFCB /* Build configuration list for PBXNativeTarget "DALDebuggingTests" */ = {
 			isa = XCConfigurationList;
@@ -565,6 +566,7 @@
 				4892ABA518130D2700AEBFCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

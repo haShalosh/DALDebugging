@@ -154,7 +154,7 @@ NSString *DALClassMethodsDescription(Class aClass)
 				for (unsigned argumentIndex = 0; argumentIndex < numberOfArguments; argumentIndex++)
 				{
 					unsigned int charLength = 1024 * 4;
-					char *argumentTypeChar = malloc(charLength);
+					char argumentTypeChar[charLength];
 					method_getArgumentType(aMethod, argumentIndex, argumentTypeChar, charLength);
 					
 					if (argumentIndex > 1)
@@ -172,8 +172,6 @@ NSString *DALClassMethodsDescription(Class aClass)
 						
 						[methodString appendFormat:@")arg%u", adjustedArgumentIndex+1];
 					}
-					
-					free(argumentTypeChar);
 				}
 			}
 			else
@@ -795,13 +793,39 @@ NSString *DALDescriptionOfPropertyAttributeType(objc_property_attribute_t attrib
 
 NSString *DALBinaryRepresentationOfNSInteger(NSInteger anInteger)
 {
-#warning TODO: Test this
     NSMutableString * string = [[NSMutableString alloc] init];
 	
     NSInteger spacing = pow(2, 3);
     NSInteger width = sizeof(anInteger) * spacing;
     NSInteger binaryDigit = 0;
     NSInteger integer = anInteger;
+	
+    while (binaryDigit < width)
+    {
+        binaryDigit++;
+		
+		NSString *digit = (integer & 1) ? @"1" : @"0";
+        [string insertString:digit atIndex:0];
+		
+        if ( (binaryDigit % spacing == 0) && (binaryDigit != width) )
+        {
+            [string insertString:@" " atIndex:0];
+        }
+		
+        integer = integer >> 1;
+    }
+	
+    return string;
+}
+
+NSString *DALBinaryRepresentationOfNSUInteger(NSUInteger anUnsignedInteger)
+{
+    NSMutableString * string = [[NSMutableString alloc] init];
+	
+    NSUInteger spacing = pow(2, 3);
+    NSUInteger width = sizeof(anUnsignedInteger) * spacing;
+    NSUInteger binaryDigit = 0;
+    NSUInteger integer = anUnsignedInteger;
 	
     while (binaryDigit < width)
     {
@@ -848,7 +872,16 @@ NSDictionary *DALPropertyNamesAndValuesMemoryAddressesForObject(NSObject *instan
 					selectorString = [NSString stringWithFormat:@"%s", customGetterChar];
 				
 				SEL selector = NSSelectorFromString(selectorString);
-				propertyValue = objc_msgSend(instance, selector);
+                
+                // The following try/catch is to prevent this function from failing due to an assert throwing an exception.
+                @try
+                {
+                    propertyValue = objc_msgSend(instance, selector);
+                }
+                @catch (NSException *exception)
+                {
+                }
+                
 				if (propertyValue)
 				{
 					NSString *key = [NSString stringWithFormat:@"%@ in class %@", name, NSStringFromClass(theClass)];
