@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4884D3C8182A11E400C48FB6 /* UIControl+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4884D3C7182A11E400C48FB6 /* UIControl+DALDebugging.m */; };
 		4892AB6F18130D2600AEBFCB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4892AB6E18130D2600AEBFCB /* Foundation.framework */; };
 		4892AB7118130D2600AEBFCB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4892AB7018130D2600AEBFCB /* CoreGraphics.framework */; };
 		4892AB7318130D2600AEBFCB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4892AB7218130D2600AEBFCB /* UIKit.framework */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4884D3C6182A11E400C48FB6 /* UIControl+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+DALDebugging.h"; sourceTree = "<group>"; };
+		4884D3C7182A11E400C48FB6 /* UIControl+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+DALDebugging.m"; sourceTree = "<group>"; };
 		4892AB6B18130D2600AEBFCB /* DALDebugging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DALDebugging.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4892AB6E18130D2600AEBFCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4892AB7018130D2600AEBFCB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -207,6 +210,8 @@
 				4892ABB518130D9800AEBFCB /* UIView+DALDebugging.m */,
 				4892ABB818130D9800AEBFCB /* UIWindow+DALDebugging.h */,
 				4892ABAC18130D9800AEBFCB /* UIWindow+DALDebugging.m */,
+				4884D3C6182A11E400C48FB6 /* UIControl+DALDebugging.h */,
+				4884D3C7182A11E400C48FB6 /* UIControl+DALDebugging.m */,
 			);
 			path = DALDebugging;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				4892ABBF18130D9800AEBFCB /* UIImage+DALDebugging.m in Sources */,
 				4892ABBB18130D9800AEBFCB /* UIWindow+DALDebugging.m in Sources */,
 				4892ABB918130D9800AEBFCB /* DALIntrospection-fno-objc-arc.m in Sources */,
+				4884D3C8182A11E400C48FB6 /* UIControl+DALDebugging.m in Sources */,
 				4892ABBA18130D9800AEBFCB /* DALIntrospection.m in Sources */,
 				4892ABBD18130D9800AEBFCB /* NSProxy+DALDebugging.m in Sources */,
 				4892ABBC18130D9800AEBFCB /* NSObject+DALDebugging.m in Sources */,

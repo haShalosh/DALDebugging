@@ -26,6 +26,8 @@
 
 #if DEBUG
 
+#import "UIWindow+DALDebugging.h"
+
 @implementation UIWindow (DALDebugging)
 
 - (void)enableSlowAnimations;

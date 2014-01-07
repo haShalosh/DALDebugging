@@ -70,9 +70,18 @@
 {
 	BOOL didSave = NO;
 	
+	UIImage *image = nil;
+	
 	UIGraphicsBeginImageContext(self.frame.size);
-	[self.layer renderInContext:UIGraphicsGetCurrentContext()];
-	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+	if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)])
+	{
+		[self drawViewHierarchyInRect:(CGRect){CGPointZero, self.bounds.size} afterScreenUpdates:NO];
+	}
+	else
+	{
+		[self.layer renderInContext:UIGraphicsGetCurrentContext()];
+	}
+	image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	
 	NSData *data = UIImagePNGRepresentation(image);

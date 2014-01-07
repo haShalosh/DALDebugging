@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DALDebugging/DALViewController.m"
@@ -52,12 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DALDebugging/DALDebugging/DALIntrospection-fno-objc-arc.m"
-            timestampString = "404620499.737792"
+            timestampString = "404620023.400426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "DALDescriptionOfReturnValueFromMethod()"
+            startingLineNumber = "656"
+            endingLineNumber = "656"
+            landmarkName = "DALShouldIgnoreMethod()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -67,14 +67,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DALDebugging/DALDebugging/DALIntrospection-fno-objc-arc.m"
-            timestampString = "404620023.400426"
+            filePath = "DALDebugging/DALViewController.m"
+            timestampString = "405409851.361352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "656"
-            endingLineNumber = "656"
-            landmarkName = "DALDescriptionOfReturnValueForIvar()"
-            landmarkType = "7">
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -43,6 +43,21 @@
 	NSLog(@"Other neat things you can do:");
 	NSLog(@"po [self.view ivarsDescription]:\n%@\n", [self.view ivarsDescription]);
 	
+    
+    UIButton *button = [[UIButton alloc] init];
+    [button addTarget:self action:@selector(controlEventTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(controlEventTouchUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+    NSLog(@"%@", button);
+}
+
+- (void)controlEventTouchUpInside:(UIControl *)control
+{
+    
+}
+
+- (void)controlEventTouchUpOutside:(UIControl *)control
+{
+    
 }
 
 #pragma mark - UITableViewDataSource

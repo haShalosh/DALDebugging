@@ -179,7 +179,6 @@ NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
 			
 		case _C_BFLD:     // 'b'
 		{
-#warning TODO: Test this
 			NSUInteger result;
 			result = (NSUInteger)objc_msgSend(instance, selector);
 			description = DALBinaryRepresentationOfNSUInteger(result);
