@@ -41,8 +41,8 @@
 /// \return A description of all the methods on the class and it's superclasses, excluding Apple classes.
 - (id)_shortMethodDescription NS_AVAILABLE_IOS(7_0);
 
-- (id)__ivarDescriptionForClass:(Class)arg1;
-- (id)__methodDescriptionForClass:(Class)arg1;
+- (id)__ivarDescriptionForClass:(Class)arg1 NS_AVAILABLE_IOS(7_0);
+- (id)__methodDescriptionForClass:(Class)arg1 NS_AVAILABLE_IOS(7_0);
 
 @end
 

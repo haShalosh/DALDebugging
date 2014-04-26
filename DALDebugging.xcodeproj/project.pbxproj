@@ -197,6 +197,7 @@
 				4892ABA818130D9800AEBFCB /* DALIntrospection+Helper.h */,
 				4892ABAA18130D9800AEBFCB /* DALIntrospection.h */,
 				4892ABAB18130D9800AEBFCB /* DALIntrospection.m */,
+				4805B285190C29F5001C6D04 /* DALSwizzling.h */,
 				4892ABAD18130D9800AEBFCB /* NSObject+DALDebugging.h */,
 				4892ABAE18130D9800AEBFCB /* NSObject+DALDebugging.m */,
 				4892ABAF18130D9800AEBFCB /* NSProxy+DALDebugging.h */,
@@ -210,7 +211,6 @@
 				4892ABAC18130D9800AEBFCB /* UIWindow+DALDebugging.m */,
 				4884D3C6182A11E400C48FB6 /* UIControl+DALDebugging.h */,
 				4884D3C7182A11E400C48FB6 /* UIControl+DALDebugging.m */,
-				4805B285190C29F5001C6D04 /* DALSwizzling.h */,
 			);
 			path = DALDebugging;
 			sourceTree = "<group>";
