@@ -30,7 +30,6 @@
 
 @interface UIWindow (DALDebugging)
 
-/// \brief This is equivalent to enabling slow animations in the simulator.
 - (void)enableSlowAnimations;
 - (void)disableSlowAnimations;
 

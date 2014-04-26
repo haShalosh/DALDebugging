@@ -34,7 +34,6 @@
 
 NSString * const DALSwizzledPrefix = @"DALSwizzled_";
 
-#pragma mark -
 #pragma mark Class Introspection
 NSString *DALClassAncestryWithProtocolsDescription(Class aClass, BOOL withProtocols)
 {
@@ -281,7 +280,7 @@ NSString *DALClassPropertiesDescription(Class aClass)
 			
 		}
 		
-		//TODO remove this hack and figure out propery when to add @", ".
+		//TODO remove this hack and figure out properly when to add @", ".
 		if ([description hasSuffix:@", "])
 			[description deleteCharactersInRange:NSMakeRange(description.length - 1, 1)];
 		
@@ -330,19 +329,19 @@ NSString *DALInstanceIvarsDescription(id instance)
 			
 			Ivar anIvar = ivars[i];
 			
-//			const char *returnTypeChar = ivar_getTypeEncoding(anIvar);
-//			NSString *returnTypeDescription = DALDescriptionOfReturnOrParameterType(returnTypeChar);
-//			if ([returnTypeDescription hasPrefix:@"@\""] && [returnTypeDescription hasSuffix:@"\""])
-//			{
-//				returnTypeDescription = [returnTypeDescription substringWithRange:NSMakeRange(2, returnTypeDescription.length - 3)];
-//				returnTypeDescription = [returnTypeDescription stringByAppendingString:@" *"];
-//			}
-//			else
-//			{
-//				returnTypeDescription = [returnTypeDescription stringByAppendingString:@" "];
-//			}
+			//const char *returnTypeChar = ivar_getTypeEncoding(anIvar);
+			//NSString *returnTypeDescription = DALDescriptionOfReturnOrParameterType(returnTypeChar);
+			//if ([returnTypeDescription hasPrefix:@"@\""] && [returnTypeDescription hasSuffix:@"\""])
+			//{
+			//	returnTypeDescription = [returnTypeDescription substringWithRange:NSMakeRange(2, returnTypeDescription.length - 3)];
+			//	returnTypeDescription = [returnTypeDescription stringByAppendingString:@" *"];
+			//}
+			//else
+			//{
+			//	returnTypeDescription = [returnTypeDescription stringByAppendingString:@" "];
+			//}
 			//
-//			[description appendString:returnTypeDescription];
+			//[description appendString:returnTypeDescription];
 			
 			const char *nameChar = ivar_getName(anIvar);
 			NSString *name = [NSString stringWithUTF8String:nameChar];
@@ -571,15 +570,16 @@ NSString *DALProtocolDescription(Protocol *aProtocol)
 	return @"Not yet implemented...";
 }
 
-#pragma mark -
-#pragma mark Convenience
-id KeyWindowDescription()
+
+#pragma mark - Convenience
+id KeyWindowDescription(void)
 {
 	return [[[UIApplication sharedApplication] keyWindow] recursiveDescription];
 }
 
-#pragma mark -
-#pragma mark Swizzling Introspection
+
+#pragma mark - Helpers
+
 NSString *DALDescriptionOfProtocolsForClass(Class aClass)
 {
 	NSMutableString *description = [NSMutableString string];
@@ -607,10 +607,6 @@ NSString *DALDescriptionOfProtocolsForClass(Class aClass)
 	return description;
 };
 
-
-#pragma mark -
-#pragma mark -
-#pragma mark Helpers
 NSString *DALDescriptionOfReturnOrParameterType(const char *type)
 {
 	NSString *description;
@@ -674,7 +670,7 @@ NSString *DALDescriptionOfReturnOrParameterType(const char *type)
 				description = @"double";
 				break;
 			case _C_BFLD:     // 'b'
-				description = @"'b' _C_BFLD";
+				description = @"bitfield";
 				break;
 			case _C_BOOL:     // 'B'
 				description = @"BOOL";
@@ -880,6 +876,7 @@ NSDictionary *DALPropertyNamesAndValuesMemoryAddressesForObject(NSObject *instan
                 }
                 @catch (NSException *exception)
                 {
+					propertyValue = [instance valueForKey:name];
                 }
                 
 				if (propertyValue)
@@ -924,6 +921,1199 @@ SEL DALSelectorForPropertyOfClass(objc_property_t property, Class aClass)
 	}
 	
 	return selector;
+}
+
+
+#pragma mark - Descriptions
+
+/// \brief Will ignore Methods that take parameters
+NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod)
+{
+	SEL selector = method_getName(aMethod);
+	
+	int returnTypeLength = 1024 * 10;
+	char returnTypeChar[returnTypeLength];
+	
+	method_getReturnType(aMethod, returnTypeChar, returnTypeLength);
+	
+	u_int numberOfArguments = method_getNumberOfArguments(aMethod);
+	if (numberOfArguments > 2)
+		return [NSString stringWithFormat:@"(ignoring method: %@)", NSStringFromSelector(method_getName(aMethod))];
+	
+	NSString *description = nil;
+	switch (returnTypeChar[0])
+	{
+		case _C_ID:       // '@'
+		{
+			id result = nil;
+			result = objc_msgSend(instance, selector);
+			description = DALDescriptionOfFoundationObject(result);
+		}
+			break;
+			
+		case _C_CLASS:    // '#'
+		{
+			Class result = NULL;
+			
+			Class (*DAL_Class_object_msgSend)(id, SEL) = (Class (*)(id, SEL))objc_msgSend;
+			result = DAL_Class_object_msgSend(instance, selector);
+			
+			if (result)
+			{
+				description = NSStringFromClass(result);
+			}
+		}
+			break;
+			
+		case _C_SEL:      // ':'
+		{
+			SEL result = NULL;
+			
+			SEL (*DAL_SEL_objc_msgSend)(id, SEL) = (SEL(*)(id, SEL))objc_msgSend;
+			result = DAL_SEL_objc_msgSend(instance, selector);
+			
+			description = NSStringFromSelector(result);
+		}
+			break;
+			
+		case _C_UCHR:     // 'C'
+		{
+			unsigned char result = 0;
+			result = (unsigned char)objc_msgSend(instance, selector);
+			description = [NSString stringWithFormat:@"%hhu", result];
+		}
+			break;
+			
+		case _C_SHT:      // 's'
+		{
+			short result = 0;
+			result = (short)objc_msgSend(instance, selector);
+			description = [NSString stringWithFormat:@"%hd", result];
+		}
+			break;
+			
+		case _C_USHT:     // 'S'
+		{
+			unsigned short result = 0;
+			result = (unsigned short)objc_msgSend(instance, selector);
+			description = [NSString stringWithFormat:@"%hu", result];
+		}
+			break;
+			
+		case _C_INT:      // 'i'
+		{
+			int result = 0;
+			result = (int)objc_msgSend(instance, selector);
+			description = [NSString stringWithFormat:@"%d", result];
+		}
+			break;
+			
+		case _C_UINT:     // 'I'
+		{
+			unsigned int result = 0;
+			result = (unsigned int)objc_msgSend(instance, selector);
+			description = [NSString stringWithFormat:@"%u", result];
+		}
+			break;
+			
+		case _C_LNG:      // 'l'
+		{
+			long result = 0;
+			result = (long)objc_msgSend(instance, selector);
+			description = [NSString stringWithFormat:@"%ld", result];
+		}
+			break;
+			
+		case _C_ULNG:     // 'L'
+		{
+			unsigned long result = 0;
+			result = (unsigned long)objc_msgSend(instance, selector);
+			description = [NSString stringWithFormat:@"%lu", result];
+		}
+			break;
+			
+		case _C_LNG_LNG:  // 'q'
+		{
+			long long result = 0;
+			
+			long long (*DAL_long_long_objc_msgSend)(id, SEL) = (long long (*)(id, SEL))objc_msgSend;
+			result = DAL_long_long_objc_msgSend(instance, selector);
+			
+			description = [NSString stringWithFormat:@"%lld", result];
+		}
+			break;
+			
+		case _C_ULNG_LNG: // 'Q'
+		{
+			unsigned long long result = 0;
+			
+			unsigned long long (*DAL_unsigned_long_long_objc_msgSend)(id, SEL) = (unsigned long long (*)(id, SEL))objc_msgSend;
+			result = DAL_unsigned_long_long_objc_msgSend(instance, selector);
+			
+			description = [NSString stringWithFormat:@"%llu", result];
+		}
+			break;
+			
+		case _C_FLT:      // 'f'
+        {
+			float result = 0;
+			
+			float (*DAL_float_objc_msgSend)(id, SEL) = (float (*)(id, SEL))objc_msgSend;
+			result = DAL_float_objc_msgSend(instance, selector);
+			
+			description = [NSString stringWithFormat:@"%f", result];
+        }
+			break;
+			
+		case _C_DBL:      // 'd'
+        {
+			double result = 0;
+			
+			double (*DAL_double_objc_msgSend)(id, SEL) = (double (*)(id, SEL))objc_msgSend;
+			result = DAL_double_objc_msgSend(instance, selector);
+			
+			description = [NSString stringWithFormat:@"%f", result];
+        }
+			break;
+			
+		case _C_BFLD:     // 'b'
+		{
+			NSUInteger result;
+			result = (NSUInteger)objc_msgSend(instance, selector);
+			description = DALBinaryRepresentationOfNSUInteger(result);
+		}
+			break;
+			
+		case _C_CHR:      // 'c' // BOOL is usually type'd as a char
+		case _C_BOOL:     // 'B'
+		{
+			BOOL result = NO;
+			result = (BOOL)objc_msgSend(instance, selector);
+			description = (result ? @"YES" : @"NO");
+		}
+			break;
+			
+		case _C_VOID:     // 'v'
+			description = @"(void)";
+			break;
+			
+		case _C_UNDEF:    // '?'
+			description = @"(undefined)";
+			break;
+			
+		case _C_PTR:      // '^'
+		{
+			switch (returnTypeChar[1])
+			{
+				case '{':
+				{
+                    NSString *returnType = [NSString stringWithUTF8String:returnTypeChar];
+					if ([returnType hasPrefix:@"^{CGColor="])
+					{
+						CGColorRef result = NULL;
+						
+						CGColorRef (*DAL_CGColorRef_objc_msgSend)(id, SEL) = (CGColorRef (*)(id, SEL))objc_msgSend;
+						result = DAL_CGColorRef_objc_msgSend(instance, selector);
+						
+						UIColor *color = [UIColor colorWithCGColor:result];
+						description = DALDescriptionOfFoundationObject(color);
+					}
+					else if ([returnType hasPrefix:@"^{__CFDictionary="])
+					{
+						CFDictionaryRef result = NULL;
+						
+						CFDictionaryRef (*DAL_CFDictionaryRef_objc_msgSend)(id, SEL) = (CFDictionaryRef (*)(id, SEL))objc_msgSend;
+						result = DAL_CFDictionaryRef_objc_msgSend(instance, selector);
+						
+						description = DALDescriptionOfCoreFoundationObject((void *)result);
+					}
+					else
+					{
+						description = DALDescriptionForUnsupportedType(returnTypeChar);
+					}
+				}
+					break;
+					
+				case 'v':
+				{
+					void *result = NULL;
+					
+					void *(*DAL_void_star_objc_msgSend)(id, SEL) = (void *(*)(id, SEL))objc_msgSend;
+					result = DAL_void_star_objc_msgSend(instance, selector);
+					
+					description = [NSString stringWithFormat:@"%p", result];
+				}
+					break;
+					
+				default:
+					description = DALDescriptionForUnsupportedType(returnTypeChar);
+					break;
+			}
+		}
+			break;
+			
+		case _C_CHARPTR:  // '*'
+		{
+			char *result;
+			
+			char *(*DAL_char_star_objc_msgSend)(id, SEL) = (char *(*)(id, SEL))objc_msgSend;
+			result = DAL_char_star_objc_msgSend(instance, selector);
+			
+			description = [NSString stringWithUTF8String:result];
+		}
+			break;
+			
+		case _C_ATOM:     // '%'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_ARY_B:    // '['
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_ARY_E:    // ']'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_UNION_B:  // '('
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_UNION_E:  // ')'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_STRUCT_B: // '{'
+		{
+			NSString *typeString = [NSString stringWithUTF8String:returnTypeChar];
+			if ([typeString isEqualToString:@"{CGPoint=ff}"])
+			{
+				CGPoint result = CGPointZero;
+				DALInvokeMethodForResult(instance, aMethod, &result);
+				description = NSStringFromCGPoint(result);
+			}
+			else if ([typeString isEqualToString:@"{CGSize=ff}"])
+			{
+				CGSize result = CGSizeZero;
+				DALInvokeMethodForResult(instance, aMethod, &result);
+				description = NSStringFromCGSize(result);
+			}
+			else if ([typeString isEqualToString:@"{CGRect={CGPoint=ff}{CGSize=ff}}"])
+			{
+				CGRect result = CGRectZero;
+				DALInvokeMethodForResult(instance, aMethod, &result);
+				description = NSStringFromCGRect(result);
+			}
+			else if ([typeString isEqualToString:@"{UIEdgeInsets=ffff}"])
+			{
+				UIEdgeInsets result = UIEdgeInsetsZero;
+				DALInvokeMethodForResult(instance, aMethod, &result);
+				description = NSStringFromUIEdgeInsets(result);
+			}
+			else if ([typeString isEqualToString:@"{CGAffineTransform=ffffff}"])
+			{
+				CGAffineTransform result = CGAffineTransformMake(0, 0, 0, 0, 0, 0);;
+				DALInvokeMethodForResult(instance, aMethod, &result);
+				description = NSStringFromCGAffineTransform(result);
+			}
+			else
+			{
+#warning TODO: Implement creating description for struct
+#warning ^ See other warning
+				description = DALDescriptionForUnsupportedType(returnTypeChar);
+			}
+		}
+			break;
+			
+		case _C_STRUCT_E: // '}'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_VECTOR:   // '!'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_CONST:    // 'r'
+		{
+			const char *result = NULL;
+			
+			const char *(*DAL_const_char_star_objc_msgSend)(id, SEL) = (const char *(*)(id, SEL))objc_msgSend;
+			result = DAL_const_char_star_objc_msgSend(instance, selector);
+			
+			description = [NSString stringWithUTF8String:result];
+		}
+			break;
+			
+		default:
+			description = [NSString stringWithFormat:@"Warning! Unexpected return type: %s", returnTypeChar];
+			NSLog(@"*** %@", description);
+			break;
+	}
+	
+	return description;
+}
+
+NSString *DALDescriptionForUnsupportedType(const char *type)
+{
+	return [NSString stringWithFormat:@"(description not yet implemented for: %s)", type];
+}
+
+NSString *DALDescriptionOfFoundationObject(id instance)
+{
+	NSString *description = nil;
+	
+	if (instance)
+	{
+		if ([instance conformsToProtocol:@protocol(NSObject)])
+		{
+			description = [(NSObject *)instance description];
+		}
+		else
+		{
+			description = [NSString stringWithFormat:@"Object at memory address '%p' doesn't conform to NSObject protocol.", instance];
+		}
+	}
+	else
+	{
+		description = @"(nil)";
+	}
+	
+	return description;
+}
+
+NSString *DALDescriptionOfCoreFoundationObject(void *object)
+{
+	NSString *description = nil;
+	
+	if (object)
+	{
+		description = [NSString stringWithFormat:@"Description of Core Foundation object at memory address %p isn't yet implemented.", object];
+	}
+	else
+	{
+		description = @"(nil)";
+	}
+	
+	return description;
+}
+
+NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar)
+{
+	NSString *description = nil;
+	
+	const char *returnTypeChar = ivar_getTypeEncoding(anIvar);
+	switch (returnTypeChar[0])
+	{
+		case _C_ID:       // '@'
+		{
+			id result = nil;
+			result = object_getIvar(instance, anIvar);
+			description = DALDescriptionOfFoundationObject(result);
+		}
+			break;
+			
+		case _C_CLASS:    // '#'
+		{
+			Class result = NULL;
+			
+			Class (*DAL_Class_object_getIvar)(id, Ivar) = (Class (*)(id, Ivar))object_getIvar;
+			result = DAL_Class_object_getIvar(instance, anIvar);
+			
+			if (result)
+			{
+				description = NSStringFromClass(result);
+			}
+		}
+			break;
+			
+		case _C_SEL:      // ':'
+		{
+			SEL result = NULL;
+			
+			SEL (*DAL_SEL_object_getIvar)(id, Ivar) = (SEL (*)(id, Ivar))object_getIvar;
+			result = DAL_SEL_object_getIvar(instance, anIvar);
+			
+			description = NSStringFromSelector(result);
+		}
+			break;
+			
+		case _C_UCHR:     // 'C'
+		{
+			unsigned char result = 0;
+			result = (unsigned char)object_getIvar(instance, anIvar);
+			description = [NSString stringWithFormat:@"%hhu", result];
+		}
+			break;
+			
+		case _C_SHT:      // 's'
+		{
+			short result = 0;
+			result = (short)object_getIvar(instance, anIvar);
+			description = [NSString stringWithFormat:@"%hd", result];
+		}
+			break;
+			
+		case _C_USHT:     // 'S'
+		{
+			unsigned short result = 0;
+			result = (unsigned short)object_getIvar(instance, anIvar);
+			description = [NSString stringWithFormat:@"%hu", result];
+		}
+			break;
+			
+		case _C_INT:      // 'i'
+		{
+			int result = 0;
+			result = (int)object_getIvar(instance, anIvar);
+			description = [NSString stringWithFormat:@"%d", result];
+		}
+			break;
+			
+		case _C_UINT:     // 'I'
+		{
+			unsigned int result = 0;
+			result = (unsigned int)object_getIvar(instance, anIvar);
+			description = [NSString stringWithFormat:@"%u", result];
+		}
+			break;
+			
+		case _C_LNG:      // 'l'
+		{
+			long result = 0;
+			result = (long)object_getIvar(instance, anIvar);
+			description = [NSString stringWithFormat:@"%ld", result];
+		}
+			break;
+			
+		case _C_ULNG:     // 'L'
+		{
+			unsigned long result = 0;
+			result = (unsigned long)object_getIvar(instance, anIvar);
+			description = [NSString stringWithFormat:@"%lu", result];
+		}
+			break;
+			
+		case _C_LNG_LNG:  // 'q'
+		{
+			long long result = 0;
+			
+			long long (*DAL_long_long_object_getIvar)(id, Ivar) = (long long (*)(id, Ivar))object_getIvar;
+			result = DAL_long_long_object_getIvar(instance, anIvar);
+			
+			description = [NSString stringWithFormat:@"%lld", result];
+		}
+			break;
+			
+		case _C_ULNG_LNG: // 'Q'
+		{
+			unsigned long long result = 0;
+			
+			unsigned long long (*DAL_unsigned_long_long_object_getIvar)(id, Ivar) = (unsigned long long (*)(id, Ivar))object_getIvar;
+			result = DAL_unsigned_long_long_object_getIvar(instance, anIvar);
+			
+			description = [NSString stringWithFormat:@"%llu", result];
+		}
+			break;
+			
+		case _C_FLT:      // 'f'
+		{
+			float result = 0;
+			
+			float (*DAL_float_object_getIvar)(id, Ivar) = (float (*)(id, Ivar))object_getIvar;
+			result = DAL_float_object_getIvar(instance, anIvar);
+			
+			description = [NSString stringWithFormat:@"%f", result];
+		}
+			break;
+			
+		case _C_DBL:      // 'd'
+		{
+			double result = 0;
+			
+			double (*DAL_double_object_getIvar)(id, Ivar) = (double (*)(id, Ivar))object_getIvar;
+			result = DAL_double_object_getIvar(instance, anIvar);
+			
+			description = [NSString stringWithFormat:@"%f", result];
+		}
+			break;
+			
+		case _C_BFLD:     // 'b'
+		{
+			NSUInteger result;
+			result = (NSUInteger)object_getIvar(instance, anIvar);
+			description = DALBinaryRepresentationOfNSUInteger(result);
+		}
+			break;
+			
+		case _C_CHR:      // 'c' // BOOL is usually type'd as a char
+		case _C_BOOL:     // 'B'
+		{
+			BOOL result = NO;
+			result = (BOOL)object_getIvar(instance, anIvar);
+			description = (result ? @"YES" : @"NO");
+		}
+			break;
+			
+		case _C_VOID:     // 'v'
+			description = @"(void)";
+			break;
+			
+		case _C_UNDEF:    // '?'
+			description = @"(undefined)";
+			break;
+			
+		case _C_PTR:      // '^'
+		{
+			switch (returnTypeChar[1])
+			{
+				case '{':
+				{
+					NSString *returnType = [NSString stringWithUTF8String:returnTypeChar];
+					if ([returnType hasPrefix:@"^{CGColor="])
+					{
+						CGColorRef result = NULL;
+						
+						CGColorRef (*DAL_CGColorRef_object_getIvar)(id, Ivar) = (CGColorRef (*)(id, Ivar))object_getIvar;
+						result = DAL_CGColorRef_object_getIvar(instance, anIvar);
+						
+						UIColor *color = [UIColor colorWithCGColor:result];
+						description = DALDescriptionOfFoundationObject(color);
+					}
+					else if ([returnType hasPrefix:@"^{__CFDictionary="])
+					{
+						CFDictionaryRef result = NULL;
+						
+						CFDictionaryRef (*DAL_CFDictionaryRef_object_getIvar)(id, Ivar) = (CFDictionaryRef (*)(id, Ivar))object_getIvar;
+						result = DAL_CFDictionaryRef_object_getIvar(instance, anIvar);
+						
+						description = DALDescriptionOfCoreFoundationObject((void *)result);
+					}
+					else
+					{
+						description = DALDescriptionForUnsupportedType(returnTypeChar);
+					}
+				}
+					break;
+					
+				case 'v':
+				{
+					void *result;
+					
+					void *(*DAL_void_star_object_getIvar)(id, Ivar) = (void *(*)(id, Ivar))object_getIvar;
+					result = DAL_void_star_object_getIvar(instance, anIvar);
+					
+					description = [NSString stringWithFormat:@"%p", result];
+				}
+					break;
+					
+				default:
+					description = DALDescriptionForUnsupportedType(returnTypeChar);
+					break;
+			}
+		}
+			break;
+			
+		case _C_CHARPTR:  // '*'
+		{
+			char *result;
+			
+			char *(*DAL_char_star_object_getIvar)(id, Ivar) = (char *(*)(id, Ivar))object_getIvar;
+			result = DAL_char_star_object_getIvar(instance, anIvar);
+			
+			description = [NSString stringWithUTF8String:result];
+		}
+			break;
+			
+		case _C_ATOM:     // '%'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_ARY_B:    // '['
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_ARY_E:    // ']'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_UNION_B:  // '('
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_UNION_E:  // ')'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_STRUCT_B: // '{'
+		{
+			NSString *typeString = [NSString stringWithUTF8String:returnTypeChar];
+			if ([typeString isEqualToString:@"{CGPoint=ff}"])
+			{
+				CGPoint result = CGPointZero;
+				
+				CGPoint (*DAL_CGPoint_object_getIvar)(id, Ivar) = (CGPoint (*)(id, Ivar))object_getIvar;
+				result = DAL_CGPoint_object_getIvar(instance, anIvar);
+				
+				description = NSStringFromCGPoint(result);
+			}
+			else if ([typeString isEqualToString:@"{CGSize=ff}"])
+			{
+				CGSize result = CGSizeZero;
+				
+				CGSize (*DAL_CGSize_object_getIvar)(id, Ivar) = (CGSize (*)(id, Ivar))object_getIvar;
+				result = DAL_CGSize_object_getIvar(instance, anIvar);
+				
+				description = NSStringFromCGSize(result);
+			}
+			else if ([typeString isEqualToString:@"{CGRect={CGPoint=ff}{CGSize=ff}}"])
+			{
+				CGRect result = CGRectZero;
+				
+				CGRect (*DAL_CGRect_object_getIvar)(id, Ivar) = (CGRect (*)(id, Ivar))object_getIvar;
+				result = DAL_CGRect_object_getIvar(instance, anIvar);
+				
+				description = NSStringFromCGRect(result);
+			}
+			else if ([typeString isEqualToString:@"{UIEdgeInsets=ffff}"])
+			{
+				UIEdgeInsets result = UIEdgeInsetsZero;
+				
+				UIEdgeInsets (*DAL_UIEdgeInsets_object_getIvar)(id, Ivar) = (UIEdgeInsets (*)(id, Ivar))object_getIvar;
+				result = DAL_UIEdgeInsets_object_getIvar(instance, anIvar);
+				
+				description = NSStringFromUIEdgeInsets(result);
+			}
+			else if ([typeString isEqualToString:@"{CGAffineTransform=ffffff}"])
+			{
+				CGAffineTransform result = CGAffineTransformIdentity;
+				
+				CGAffineTransform (*DAL_CGAffineTransform_object_getIvar)(id, Ivar) = (CGAffineTransform (*)(id, Ivar))object_getIvar;
+				result = DAL_CGAffineTransform_object_getIvar(instance, anIvar);
+				
+				description = NSStringFromCGAffineTransform(result);
+			}
+			else
+			{
+#warning TODO: Implement creating description for struct
+/* -viewFlags =
+{?="userInteractionDisabled"b1"implementsDrawRect"b1"implementsDidScroll"b1"implementsMouseTracking"b1"hasBackgroundColor"b1"isOpaque"b1"becomeFirstResponderWhenCapable"b1"interceptMouseEvent"b1"deallocating"b1"debugFlash"b1"debugSkippedSetNeedsDisplay"b1"debugScheduledDisplayIsRequired"b1"isInAWindow"b1"isAncestorOfFirstResponder"b1"dontAutoresizeSubviews"b1"autoresizeMask"b6"patternBackground"b1"fixedBackgroundPattern"b1"dontAnimate"b1"superLayerIsView"b1"layerKitPatternDrawing"b1"multipleTouchEnabled"b1"exclusiveTouch"b1"hasViewController"b1"needsDidAppearOrDisappear"b1"gesturesEnabled"b1"deliversTouchesForGesturesToSuperview"b1"chargeEnabled"b1"skipsSubviewEnumeration"b1"needsDisplayOnBoundsChange"b1"hasTiledLayer"b1"hasLargeContent"b1"unused"b1"traversalMark"b1"appearanceIsInvalid"b1"monitorsSubtree"b1"hostsAutolayoutEngine"b1"constraintsAreClean"b1"subviewLayoutConstraintsAreClean"b1"intrinsicContentSizeConstraintsAreClean"b1"potentiallyHasDanglyConstraints"b1"doesNotTranslateAutoresizingMaskIntoConstraints"b1"autolayoutIsClean"b1"subviewsAutolayoutIsClean"b1"layoutFlushingDisabled"b1"layingOutFromConstraints"b1"wantsAutolayout"b1"subviewWantsAutolayout"b1"isApplyingValuesFromEngine"b1"isInAutolayout"b1"isUpdatingAutoresizingConstraints"b1"isUpdatingConstraints"b1"stayHiddenAwaitingReuse"b1"stayHiddenAfterReuse"b1"skippedLayoutWhileHiddenForReuse"b1"hasMaskView"b1"hasVisualAltitude"b1"hasBackdropMaskViews"b1"backdropMaskViewFlags"b3"delaysTouchesForSystemGestures"b1"subclassShouldDelayTouchForSystemGestures"b1"hasMotionEffects"b1"backdropOverlayMode"b2"tintAdjustmentMode"b2"isReferenceView"b1"focusState"b2"hasUserInterfaceIdiom"b1"userInterfaceIdiom"b3"ancestorDefinesTintColor"b1"ancestorDefinesTintAdjustmentMode"b1}
+ */
+				
+				description = [NSString stringWithFormat:@"(unsupported struct: %@)", typeString];
+			}
+		}
+			break;
+			
+		case _C_STRUCT_E: // '}'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_VECTOR:   // '!'
+			description = DALDescriptionForUnsupportedType(returnTypeChar);
+			break;
+			
+		case _C_CONST:    // 'r'
+		{
+			const char *result;
+			
+			const char *(*DAL_const_char_star_object_getIvar)(id, Ivar) = (const char *(*)(id, Ivar))object_getIvar;
+			result = DAL_const_char_star_object_getIvar(instance, anIvar);
+			
+			description = [NSString stringWithUTF8String:result];
+		}
+			break;
+			
+		default:
+			description = [NSString stringWithFormat:@"Warning! Unexpected return type: %s", returnTypeChar];
+			NSLog(@"*** %@", description);
+			break;
+	}
+	
+	return description;
+}
+
+#pragma mark Convenience
+BOOL DALShouldIgnoreMethod(Method aMethod)
+{
+	char returnType[1];
+	method_getReturnType(aMethod, returnType, 1);
+	
+	if (returnType[0] == _C_VOID)
+		return YES;
+	
+	SEL selector = method_getName(aMethod);
+	if (DALShouldIgnoreSelector(selector))
+		return YES;
+	
+	return NO;
+}
+
+BOOL DALShouldIgnoreSelector(SEL selector)
+{
+	BOOL shouldIgnoreSelector = NO;
+	
+	NSString *string = NSStringFromSelector(selector);
+	if ([string hasPrefix:@"_mapkit"] ||
+		[string hasPrefix:@"create"] ||
+		[string hasPrefix:@"initWith"] ||
+		[string hasPrefix:@"layout"] ||
+		[string hasPrefix:@"new"] ||
+		[string isEqualToString:@"ancestryDescription"] ||
+		[string isEqualToString:@"ancestryWithProtocolsDescription"] ||
+		[string isEqualToString:@"ivarsDescription"] ||
+		[string isEqualToString:@"methodsDescription"] ||
+		[string isEqualToString:@"propertiesDescription"] ||
+		[string isEqualToString:@"ivarsRecursiveDescription"] ||
+		[string isEqualToString:@"methodsRecursiveDescription"] ||
+		[string isEqualToString:@"propertiesRecursiveDescription"] ||
+		[string isEqualToString:@".cxx_destruct"] ||
+		[string isEqualToString:@"___tryRetain_OA"] ||
+		[string isEqualToString:@"__autorelease_OA"] ||
+		[string isEqualToString:@"__dealloc_zombie"] ||
+		[string isEqualToString:@"__release_OA"] ||
+		[string isEqualToString:@"__retain_OA"] ||
+		[string isEqualToString:@"_caretRect"] ||
+		[string isEqualToString:@"_gkStandardBackdropView"] ||
+		[string isEqualToString:@"_hackFor11408026_beginAppearanceTransition:animated:"] || // UIViewController
+		[string isEqualToString:@"_hackFor11408026_endAppearanceTransition"] ||
+		[string isEqualToString:@"_initializeSafeCategoryFromValidationManager"] ||
+		[string isEqualToString:@"_installSafeCategoryValidationMethod"] ||
+		[string isEqualToString:@"_synchronizeDrawingAcrossProcesses"] ||
+		[string isEqualToString:@"_tryRetain"] ||
+		[string isEqualToString:@"autorelease"] ||
+		[string isEqualToString:@"copy"] ||
+		[string isEqualToString:@"dealloc"] ||
+		[string isEqualToString:@"finalize"] ||
+		[string isEqualToString:@"init"] ||
+		[string isEqualToString:@"initialize"] ||
+		[string isEqualToString:@"release"] ||
+		[string isEqualToString:@"retain"] ||
+		//[string isEqualToString:@"XPCInterface"] ||
+		[string hasSuffix:@"Copy"] ||
+		[string hasSuffix:@"Release"] ||
+		[string hasSuffix:@"Retain"])
+	{
+		shouldIgnoreSelector = YES;
+	}
+	
+	return shouldIgnoreSelector;
+}
+
+void DALInvokeMethodForResult(id instance, Method aMethod, void *result)
+{
+	SEL selector = method_getName(aMethod);
+	if (DALShouldIgnoreSelector(selector))
+	{
+		result = nil;
+	}
+	else
+	{
+		char *types = DALTypesForMethod(aMethod);
+		
+		NSMethodSignature *signature = [NSMethodSignature signatureWithObjCTypes:types];
+		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+		[invocation setTarget:instance];
+		[invocation setSelector:selector];
+		@try
+		{
+			[invocation invoke];
+			[invocation getArgument:&result atIndex:0];
+		}
+		@catch (NSException *exception)
+		{
+			NSString *selectorString = NSStringFromSelector(selector);
+			NSString *objectString = NSStringFromClass([instance class]);
+			NSLog(@"Warning! Unable to invoke selector '%@' on class '%@'. Exception: %@", selectorString, objectString, exception);
+		}
+        
+        free(types);
+	}
+}
+
+char *DALTypesForMethod(Method aMethod)
+{
+    char *types;
+    
+	size_t bufferLength = 10240;
+	unsigned numberOfArguments = method_getNumberOfArguments(aMethod);
+	
+	size_t lengthOfTypes = bufferLength * (numberOfArguments + 1);
+	types = malloc(lengthOfTypes);
+	
+	char returnType[bufferLength];
+	method_getReturnType(aMethod, returnType, bufferLength);
+	
+	strcat(types, returnType);
+	
+	for (unsigned int argumentIndex = 0; argumentIndex < numberOfArguments; argumentIndex++)
+	{
+		char argumentType[bufferLength];
+		method_getArgumentType(aMethod, argumentIndex, argumentType, bufferLength);
+		strcat(types, argumentType);
+	}
+	
+	return types;
+}
+
+
+#pragma mark -
+#pragma mark - Swizzled method logging
+
+void DALRetainAutorelease(id instance)
+{
+	SEL retainSelector = ({
+		SEL sel = NULL;
+
+		NSString *string = @"retain";
+		SEL swizzledSel = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:string]);
+		if ([instance respondsToSelector:swizzledSel])
+		{
+			sel = swizzledSel;
+		}
+		else
+		{
+			sel = NSSelectorFromString(string);
+		}
+		
+		sel;
+	});
+	
+	SEL autoreleaseSelector = ({
+		SEL sel = NULL;
+
+		NSString *string = @"autorelease";
+		SEL swizzledSel = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:string]);
+		if ([instance respondsToSelector:swizzledSel])
+		{
+			sel = swizzledSel;
+		}
+		else
+		{
+			sel = NSSelectorFromString(string);
+		}
+		
+		sel;
+	});
+	
+	objc_msgSend(objc_msgSend(instance, retainSelector), autoreleaseSelector);
+}
+
+void DALSwizzleInstanceMethodsForClass(Class aClass)
+{
+	unsigned int numberOfMethods = 0;
+	Method *methods = class_copyMethodList(aClass, &numberOfMethods);
+	for (unsigned int methodIndex = 0; methodIndex < numberOfMethods; methodIndex++)
+	{
+		Method aMethod = methods[methodIndex];
+		
+		SEL originalName = method_getName(aMethod);
+		SEL name = NSSelectorFromString([DALSwizzledPrefix stringByAppendingString:NSStringFromSelector(originalName)]);
+		IMP imp = imp_implementationWithBlock(DALImplementationBlockForMethod(aMethod, name, originalName));
+		
+		char *types = DALTypesForMethod(aMethod);
+		
+		if (class_addMethod(aClass, name, imp, types))
+		{
+			Method m1 = aMethod;
+			Method m2 = class_getInstanceMethod(aClass, name);
+			method_exchangeImplementations(m1, m2);
+		}
+		else
+		{
+			NSLog(@"*** Error! Unable to add method: %@", NSStringFromSelector(name));
+		}
+		
+		free(types);
+	}
+}
+
+id DALImplementationBlockForMethod(Method aMethod, SEL swizzledSelector, SEL originalSelector)
+{
+	id block = nil;
+	
+	unsigned numberOfArguments = method_getNumberOfArguments(aMethod) - 2;
+	
+	char returnType[1];
+	method_getReturnType(aMethod, returnType, 1);
+	switch (returnType[0])
+	{
+		case _C_VOID:
+			block = DALBlockWithVoidReturnAndNumberOfArguments(numberOfArguments, swizzledSelector, originalSelector);
+			break;
+			
+		case _C_STRUCT_B:
+			block = DALBlockWithStructReturnAndNumberOfArguments(numberOfArguments, swizzledSelector, originalSelector);
+			break;
+			
+		default:
+			block = DALBlockWithIdReturnAndNumberOfArguments(numberOfArguments, swizzledSelector, originalSelector);
+			break;
+	}
+	
+	return block;
+}
+
+id DALBlockWithVoidReturnAndNumberOfArguments(unsigned numberOfArguments, SEL swizzledSelector, SEL originalSelector)
+{
+	id block = nil;
+	
+	switch (numberOfArguments)
+	{
+		case 0:
+			block = [^void(id __strong blockSelf) {
+				
+				if ([NSStringFromSelector(originalSelector) isEqualToString:@"retain"])
+				{
+					static int count = 0;
+					if (count > 5)
+					{
+						NSLog(@"%@", [NSThread callStackSymbols]);
+					}
+					count++;
+					
+				}
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				objc_msgSend(blockSelf, swizzledSelector, NULL);
+			} copy];
+			break;
+			
+		case 1:
+			block = [^void(id __strong blockSelf, void *arg) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				objc_msgSend(blockSelf, swizzledSelector, arg);
+			} copy];
+			break;
+			
+		case 2:
+			block = [^void(id __strong blockSelf, void *arg1, void *arg2) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				objc_msgSend(blockSelf, swizzledSelector, arg1, arg2);
+			} copy];
+			break;
+			
+		case 3:
+			block = [^void(id __strong blockSelf, void *arg1, void *arg2, void *arg3) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				objc_msgSend(blockSelf, swizzledSelector, arg1, arg2, arg3);
+			} copy];
+			break;
+			
+		case 4:
+			block = [^void(id __strong blockSelf, void *arg1, void *arg2, void *arg3, void *arg4) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				objc_msgSend(blockSelf, swizzledSelector, arg1, arg2, arg3, arg4);
+			} copy];
+			break;
+			
+		case 5:
+			block = [^void(id __strong blockSelf, void *arg1, void *arg2, void *arg3, void *arg4, void *arg5) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				objc_msgSend(blockSelf, swizzledSelector, arg1, arg2, arg3, arg4, arg5);
+			} copy];
+			break;
+			
+		default:
+			NSLog(@"*** Error! Method requires '%u' parameters", numberOfArguments);
+			break;
+	}
+	
+	return block;
+}
+
+id DALBlockWithStructReturnAndNumberOfArguments(unsigned numberOfArguments, SEL swizzledSelector, SEL originalSelector)
+{
+	id block = nil;
+	
+	void *(*DAL_void_star_objc_msgSend_stret)(id, SEL, ...) = (void *(*)(id, SEL, ...))objc_msgSend_stret;
+	
+	switch (numberOfArguments)
+	{
+		case 0:
+			block = [^void *(id __strong blockSelf) {
+				
+				if ([NSStringFromSelector(originalSelector) isEqualToString:@"retain"])
+				{
+					static int count = 0;
+					if (count > 5)
+					{
+						NSLog(@"%@", [NSThread callStackSymbols]);
+					}
+					count++;
+					
+				}
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				
+				void *value;
+				value = DAL_void_star_objc_msgSend_stret(blockSelf, swizzledSelector);
+				return value;
+			} copy];
+			break;
+			
+		case 1:
+			block = [^void *(id __strong blockSelf, void *arg) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				
+				void *value;
+				value = DAL_void_star_objc_msgSend_stret(blockSelf, swizzledSelector, arg);
+				return value;
+			} copy];
+			break;
+			
+		case 2:
+			block = [^void *(id __strong blockSelf, void *arg1, void *arg2) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				
+				void *value;
+				value = DAL_void_star_objc_msgSend_stret(blockSelf, swizzledSelector, arg1, arg2);
+				return value;
+			} copy];
+			break;
+			
+		case 3:
+			block = [^void *(id __strong blockSelf, void *arg1, void *arg2, void *arg3) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				
+				void *value;
+				value = DAL_void_star_objc_msgSend_stret(blockSelf, swizzledSelector, arg1, arg2, arg3);
+				return value;
+			} copy];
+			break;
+			
+		case 4:
+			block = [^void *(id __strong blockSelf, void *arg1, void *arg2, void *arg3, void *arg4) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				
+				void *value;
+				value = DAL_void_star_objc_msgSend_stret(blockSelf, swizzledSelector, arg1, arg2, arg3, arg4);
+				return value;
+			} copy];
+			break;
+			
+		case 5:
+			block = [^void *(id __strong blockSelf, void *arg1, void *arg2, void *arg3, void *arg4, void *arg5) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				
+				void *value;
+				value = DAL_void_star_objc_msgSend_stret(blockSelf, swizzledSelector, arg1, arg2, arg3, arg4, arg5);
+				return value;
+			} copy];
+			break;
+			
+		default:
+			NSLog(@"*** Error! Method requires '%u' parameters", numberOfArguments);
+			break;
+	}
+	
+	return block;
+}
+
+id DALBlockWithIdReturnAndNumberOfArguments(unsigned numberOfArguments, SEL swizzledSelector, SEL originalSelector)
+{
+	id block = nil;
+	
+	switch (numberOfArguments)
+	{
+		case 0:
+			block = [^id(id __strong blockSelf) {
+				
+#warning Why did I do this?
+				if ([NSStringFromSelector(originalSelector) isEqualToString:@"retain"])
+				{
+					static int count = 0;
+					if (count > 5)
+					{
+						NSLog(@"%@", [NSThread callStackSymbols]);
+					}
+					count++;
+				}
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				id value = objc_msgSend(blockSelf, swizzledSelector);
+				return value;
+			} copy];
+			break;
+			
+		case 1:
+			block = [^id(id __strong blockSelf, void *arg) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				id value = objc_msgSend(blockSelf, swizzledSelector, arg);
+				return value;
+			} copy];
+			break;
+			
+		case 2:
+			block = [^id(id __strong blockSelf, void *arg1, void *arg2) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				id value = objc_msgSend(blockSelf, swizzledSelector, arg1, arg2);
+				return value;
+			} copy];
+			break;
+			
+		case 3:
+			block = [^id(id __strong blockSelf, void *arg1, void *arg2, void *arg3) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				id value = objc_msgSend(blockSelf, swizzledSelector, arg1, arg2, arg3);
+				return value;
+			} copy];
+			break;
+			
+		case 4:
+			block = [^id(id __strong blockSelf, void *arg1, void *arg2, void *arg3, void *arg4) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				id value = objc_msgSend(blockSelf, swizzledSelector, arg1, arg2, arg3, arg4);
+				return value;
+			} copy];
+			break;
+			
+		case 5:
+			block = [^id(id __strong blockSelf, void *arg1, void *arg2, void *arg3, void *arg4, void *arg5) {
+				
+				NSLog(@"<%@: %p> SEL: %@", NSStringFromClass([blockSelf class]), blockSelf, NSStringFromSelector(originalSelector));
+				DALRetainAutorelease(blockSelf);
+				id value = objc_msgSend(blockSelf, swizzledSelector, arg1, arg2, arg3, arg4, arg5);
+				return value;
+			} copy];
+			break;
+			
+		default:
+			NSLog(@"*** Error! Method requires '%u' parameters", numberOfArguments);
+			break;
+	}
+	
+	return block;
 }
 
 #endif

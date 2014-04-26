@@ -27,15 +27,18 @@
 #if DEBUG
 
 #import "UIView+DALDebugging.h"
+#import "DALSwizzling.h"
 #import "DALIntrospection+Helper.h"
 
 @implementation UIView (DALDebugging)
 
 + (void)load
 {
-	Method m1 = class_getInstanceMethod([self class], @selector(description));
-	Method m2 = class_getInstanceMethod([self class], @selector(DAL_description));
-	method_exchangeImplementations(m1, m2);
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		DALSwizzleClassOriginalSelectorSwizzledSelector(self, @selector(description), @selector(DAL_description));
+	});
 }
 
 - (NSString *)DAL_description
@@ -51,6 +54,33 @@
 	return description;
 }
 
+- (id)debugQuickLookObject
+{
+	UIImage *image = nil;
+	
+	if (CGSizeEqualToSize(self.frame.size, CGSizeZero))
+	{
+		// The console will complain if nil is returned.
+		image = [[UIImage alloc] init];
+	}
+	else
+	{
+		UIGraphicsBeginImageContext(self.frame.size);
+		if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)])
+		{
+			[self drawViewHierarchyInRect:(CGRect){CGPointZero, self.bounds.size} afterScreenUpdates:NO];
+		}
+		else
+		{
+			[self.layer renderInContext:UIGraphicsGetCurrentContext()];
+		}
+		image = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+	}
+	
+	return image;
+}
+
 #pragma mark - Public
 
 - (UIViewController *)viewController
@@ -64,6 +94,28 @@
 	}
 	
 	return viewController;
+}
+
+- (NSString *)propertyNames
+{
+	NSMutableArray *propertyNames = [NSMutableArray array];
+	
+	UIResponder *nextResponder = [self nextResponder];
+	while (nextResponder)
+	{
+		NSDictionary *nextResponderPropertyNamesAndObjectMemoryAddresses = DALPropertyNamesAndValuesMemoryAddressesForObject(nextResponder);
+		
+		NSString *theObject = [NSString stringWithFormat:@"%p", self];
+		NSArray *nextResponderPropertyNames = [nextResponderPropertyNamesAndObjectMemoryAddresses allKeysForObject:theObject];
+		for (NSString *propertyName in nextResponderPropertyNames)
+		{
+			[propertyNames addObject:propertyName];
+		}
+		
+		nextResponder = [nextResponder nextResponder];
+	}
+	
+	return [propertyNames description];
 }
 
 - (BOOL)saveToDocuments
@@ -97,28 +149,6 @@
 {
 	NSString *documentsPath = [(NSString *)NSHomeDirectory() stringByAppendingPathComponent:@"Documents/"];
 	return documentsPath;
-}
-
-- (NSString *)propertyNames
-{
-	NSMutableArray *propertyNames = [NSMutableArray array];
-	
-	UIResponder *nextResponder = [self nextResponder];
-	while (nextResponder)
-	{
-		NSDictionary *nextResponderPropertyNamesAndObjectMemoryAddresses = DALPropertyNamesAndValuesMemoryAddressesForObject(nextResponder);
-		
-		NSString *theObject = [NSString stringWithFormat:@"%p", self];
-		NSArray *nextResponderPropertyNames = [nextResponderPropertyNamesAndObjectMemoryAddresses allKeysForObject:theObject];
-		for (NSString *propertyName in nextResponderPropertyNames)
-		{
-			[propertyNames addObject:propertyName];
-		}
-		
-		nextResponder = [nextResponder nextResponder];
-	}
-	
-	return [propertyNames description];
 }
 
 @end

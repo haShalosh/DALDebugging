@@ -43,7 +43,7 @@ char *DALTypesForMethod(Method aMethod); // Must free() the return value when do
 
 NSDictionary *DALPropertyNamesAndValuesMemoryAddressesForObject(NSObject *instance);
 
-#pragma mark -fno-objc-arc
+#pragma mark previously -fno-objc-arc
 NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod); // Will ignore Methods that take parameters
 NSString *DALDescriptionForUnsupportedType(const char *type);
 NSString *DALDescriptionOfFoundationObject(id object);

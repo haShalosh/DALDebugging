@@ -47,7 +47,7 @@ NSString *DALProtocolDescription(Protocol *aProtocol); // Not yet implemented...
 
 #pragma mark - Convenience
 /// \brief This is equivalent to calling [[[UIApplication sharedApplication] keyWindow] recursiveDescription];
-NSString *KeyWindowDescription();
+NSString *KeyWindowDescription(void);
 
 
 #pragma mark - Swizzling Introspection

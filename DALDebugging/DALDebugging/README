@@ -37,7 +37,7 @@ Examples in the console:
 Stopped at a breakpoint in any of your classes: po [self ivarsDescription]
 Stopped at a breakpoint in a View Controller with a collection view: [self.collectionView ivarsDescription];
 
-If you have a view's memory address (possibly gotten from KeyWindowDescription() or using Reveal App), you can get it's property names: po [0xMEMORY_ADDRESS propertyNames]
+If you have a view's memory address (possibly gotten from KeyWindowDescription() or using Reveal App or Spark Inspector), you can get it's property names: po [0xMEMORY_ADDRESS propertyNames]
 
 
 

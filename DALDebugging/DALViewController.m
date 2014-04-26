@@ -31,7 +31,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-	NSLog(@"How the find the property names of a label"
+	NSLog(@"How the find the property names of a view"
 		  "\nIn the console, type: po KeyWindowDescription()"
 		  "\nNow do a search for: My Cell's Label"
 		  "\n(if you're wanting to find a view, you could search for it's frame)"
@@ -42,8 +42,10 @@
 	NSLog(@"");
 	NSLog(@"Other neat things you can do:");
 	NSLog(@"po [self.view ivarsDescription]:\n%@\n", [self.view ivarsDescription]);
+	NSLog(@"hover your mouse cursor over 'view', then click the 'eye' button. (this is implemented in -[UIView debugQuickLookObject]");
 	
-    
+    UIView *view = self.view;
+	
     UIButton *button = [[UIButton alloc] init];
     [button addTarget:self action:@selector(controlEventTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button addTarget:self action:@selector(controlEventTouchUpOutside:) forControlEvents:UIControlEventTouchUpOutside];

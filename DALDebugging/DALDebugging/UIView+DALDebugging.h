@@ -28,20 +28,24 @@
 
 #import <UIKit/UIKit.h>
 
-/// \brief Notes: -description will append the View Controller if it has one.
+/*
+ Notes:
+ Implements -debugQuickLookObject. Will show a snapshot of the view when hovering the cursor over a view variable.
+ -description will append the View Controller if it has one.
+ */
 @interface UIView (DALDebugging)
 
-/// \brief Will create an image of the layer and save it to the Documents folder. Will append the current NSTimeInterval onto the name.
-- (BOOL)saveToDocuments;
-/// \brief The path to the Documents folder
-- (NSString *)documentsPath;
+/// \brief Will traverse up the -nextResponder chain, asking each instance for the names of properties who's value is this object.
+- (NSString *)propertyNames;
 
 /// \brief The View Controller that has this view as it's view.
 /// \return If nil, the view is not a View Controller's view.
 - (UIViewController *)viewController;
 
-/// \brief Will traverse up the -nextResponder chain, asking each instance for the names of properties who's value is this object.
-- (NSString *)propertyNames;
+/// \brief Will create an image of the layer and save it to the Documents folder. Will append the current NSTimeInterval onto the name.
+- (BOOL)saveToDocuments;
+/// \brief The path to the Documents folder
+- (NSString *)documentsPath;
 
 @end
 
