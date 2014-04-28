@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4875C5F4190DB6DA00A668DE /* DALTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4875C5F3190DB6DA00A668DE /* DALTestModel.m */; };
 		4884D3C8182A11E400C48FB6 /* UIControl+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4884D3C7182A11E400C48FB6 /* UIControl+DALDebugging.m */; };
 		4892AB6F18130D2600AEBFCB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4892AB6E18130D2600AEBFCB /* Foundation.framework */; };
 		4892AB7118130D2600AEBFCB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4892AB7018130D2600AEBFCB /* CoreGraphics.framework */; };
@@ -46,6 +47,8 @@
 
 /* Begin PBXFileReference section */
 		4805B285190C29F5001C6D04 /* DALSwizzling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DALSwizzling.h; sourceTree = "<group>"; };
+		4875C5F2190DB6DA00A668DE /* DALTestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALTestModel.h; sourceTree = "<group>"; };
+		4875C5F3190DB6DA00A668DE /* DALTestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALTestModel.m; sourceTree = "<group>"; };
 		4884D3C6182A11E400C48FB6 /* UIControl+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+DALDebugging.h"; sourceTree = "<group>"; };
 		4884D3C7182A11E400C48FB6 /* UIControl+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+DALDebugging.m"; sourceTree = "<group>"; };
 		4892AB6B18130D2600AEBFCB /* DALDebugging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DALDebugging.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +157,8 @@
 				4892AB8718130D2700AEBFCB /* DALViewController.m */,
 				4892ABC2181312E600AEBFCB /* DALTableViewCell.h */,
 				4892ABC3181312E600AEBFCB /* DALTableViewCell.m */,
+				4875C5F2190DB6DA00A668DE /* DALTestModel.h */,
+				4875C5F3190DB6DA00A668DE /* DALTestModel.m */,
 				4892AB8918130D2700AEBFCB /* Images.xcassets */,
 				4892AB7518130D2600AEBFCB /* Supporting Files */,
 				4892ABC5181338BF00AEBFCB /* Resources */,
@@ -339,6 +344,7 @@
 				4892ABBB18130D9800AEBFCB /* UIWindow+DALDebugging.m in Sources */,
 				4884D3C8182A11E400C48FB6 /* UIControl+DALDebugging.m in Sources */,
 				4892ABBA18130D9800AEBFCB /* DALIntrospection.m in Sources */,
+				4875C5F4190DB6DA00A668DE /* DALTestModel.m in Sources */,
 				4892ABBD18130D9800AEBFCB /* NSProxy+DALDebugging.m in Sources */,
 				4892ABBC18130D9800AEBFCB /* NSObject+DALDebugging.m in Sources */,
 				4892AB8818130D2700AEBFCB /* DALViewController.m in Sources */,

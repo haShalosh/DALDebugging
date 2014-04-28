@@ -28,12 +28,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (DALDebugging)
+@interface UIImage (DALDebuggingObsolete)
 
-/// \brief Will save the image to the Documents folder. Will append the current NSTimeInterval onto the name.
-- (BOOL)saveToDocuments;
+/// \brief Xcode 5's Quicklook functionaly is much better than this (I created this solely to see what the image looked like). Will save the image to the Documents folder. Will append the current NSTimeInterval onto the name.
+- (BOOL)DAL_saveToDocuments;
 /// \brief The path to the Documents folder
-- (NSString *)documentsPath;
+- (NSString *)DAL_documentsPath;
 
 @end
 

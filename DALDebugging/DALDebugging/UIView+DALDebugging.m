@@ -28,7 +28,7 @@
 
 #import "UIView+DALDebugging.h"
 #import "DALSwizzling.h"
-#import "DALIntrospection+Helper.h"
+#import "DALIntrospection.h"
 
 @implementation UIView (DALDebugging)
 
@@ -103,7 +103,7 @@
 	UIResponder *nextResponder = [self nextResponder];
 	while (nextResponder)
 	{
-		NSDictionary *nextResponderPropertyNamesAndObjectMemoryAddresses = DALPropertyNamesAndValuesMemoryAddressesForObject(nextResponder);
+		NSDictionary *nextResponderPropertyNamesAndObjectMemoryAddresses = DALInstancePropertyNamesInNextResponderChainOfInstance(nextResponder);
 		
 		NSString *theObject = [NSString stringWithFormat:@"%p", self];
 		NSArray *nextResponderPropertyNames = [nextResponderPropertyNamesAndObjectMemoryAddresses allKeysForObject:theObject];
@@ -118,7 +118,12 @@
 	return [propertyNames description];
 }
 
-- (BOOL)saveToDocuments
+@end
+
+
+@implementation UIView (DALDebuggingObsolete)
+
+- (BOOL)DAL_saveToDocuments
 {
 	BOOL didSave = NO;
 	
@@ -145,7 +150,7 @@
 	return didSave;
 }
 
-- (NSString *)documentsPath
+- (NSString *)DAL_documentsPath
 {
 	NSString *documentsPath = [(NSString *)NSHomeDirectory() stringByAppendingPathComponent:@"Documents/"];
 	return documentsPath;

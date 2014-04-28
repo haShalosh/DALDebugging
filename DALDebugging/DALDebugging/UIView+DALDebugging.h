@@ -42,10 +42,15 @@
 /// \return If nil, the view is not a View Controller's view.
 - (UIViewController *)viewController;
 
-/// \brief Will create an image of the layer and save it to the Documents folder. Will append the current NSTimeInterval onto the name.
-- (BOOL)saveToDocuments;
+@end
+
+
+@interface UIView (DALDebuggingObsolete)
+
+/// \brief Xcode 5's Quicklook functionaly is much better than this (I created this solely to see what the view looked like). Will create an image of the layer and save it to the Documents folder. Will append the current NSTimeInterval onto the name.
+- (BOOL)DAL_saveToDocuments;
 /// \brief The path to the Documents folder
-- (NSString *)documentsPath;
+- (NSString *)DAL_documentsPath;
 
 @end
 

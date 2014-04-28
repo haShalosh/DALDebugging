@@ -50,6 +50,26 @@
     [button addTarget:self action:@selector(controlEventTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [button addTarget:self action:@selector(controlEventTouchUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
     NSLog(@"%@", button);
+	
+	
+	NSString *viewIvarsDescription = [view ivarsDescription];
+	NSLog(@"viewIvarsDescription:\n%@\n", viewIvarsDescription);
+	
+	NSString *vieweMethodsDescriptions = [view methodsDescription];
+	NSLog(@"vieweMethodsDescriptions:\n%@\n", vieweMethodsDescriptions);
+	
+	CALayer *layer = view.layer;
+	NSString *layerIvarsDescription = [layer ivarsDescription];
+	NSLog(@"layerIvarsDescription:\n%@\n", layerIvarsDescription);
+	
+	NSString *layerMethodsDescription = [layer methodsDescription];
+	NSLog(@"layerMethodsDescription:\n%@\n", layerMethodsDescription);
+	
+	NSString *selfIvarsDescription = [self ivarsDescription];
+	NSLog(@"selfIvarsDescription:\n%@\n", selfIvarsDescription);
+	
+	NSString *selfMethodsDescription = [self methodsDescription];
+	NSLog(@"selfMethodsDescription:\n%@\n", selfMethodsDescription);
 }
 
 - (void)controlEventTouchUpInside:(UIControl *)control

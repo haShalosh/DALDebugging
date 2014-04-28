@@ -29,39 +29,32 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
-#pragma mark Introspection helpers
+extern NSString * const DALSwizzledPrefix;
+
+#pragma mark Introspection Convenience
+SEL DALSelectorForPropertyOfClass(objc_property_t property, Class aClass);
+BOOL DALShouldIgnoreMethod(Method aMethod);
+BOOL DALShouldIgnoreSelector(SEL selector);
+
+#pragma mark Descriptions
 NSString *DALDescriptionOfProtocolsForClass(Class aClass);
 NSString *DALDescriptionOfReturnOrParameterType(const char *type);
 NSString *DALDescriptionOfPropertyAttributeType(objc_property_attribute_t attribute);
+NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod); // Will ignore Methods that take parameters
 NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar);
-
+NSString *DALDescriptionOfFoundationObject(id instance);
+NSString *DALDescriptionOfCoreFoundationObject(void *object);
+NSString *DALDescriptionForUnsupportedType(const char *type);
+NSString *DALDescriptionOfCATransform3D(CATransform3D transform3D);
 NSString *DALBinaryRepresentationOfNSInteger(NSInteger anInteger);
 NSString *DALBinaryRepresentationOfNSUInteger(NSUInteger anUnsignedInteger);
 
-SEL DALSelectorForPropertyOfClass(objc_property_t property, Class aClass);
-char *DALTypesForMethod(Method aMethod); // Must free() the return value when done.
-
-NSDictionary *DALPropertyNamesAndValuesMemoryAddressesForObject(NSObject *instance);
-
-#pragma mark previously -fno-objc-arc
-NSString *DALDescriptionOfReturnValueFromMethod(id instance, Method aMethod); // Will ignore Methods that take parameters
-NSString *DALDescriptionForUnsupportedType(const char *type);
-NSString *DALDescriptionOfFoundationObject(id object);
-NSString *DALDescriptionOfCoreFoundationObject(void *object);
-NSString *DALDescriptionOfReturnValueForIvar(id instance, Ivar anIvar);
-BOOL DALShouldIgnoreMethod(Method aMethod);
-BOOL DALShouldIgnoreSelector(SEL selector);
-void *DALPerformSelector(id instance, SEL aSelector);
-void DALInvokeMethodForResult(id instance, Method aMethod, void *result);
-void DALRetainAutorelease(id instance);
-
-
-#pragma mark - Swizzling Introspection helpers
+#pragma mark Swizzled Method Logging Convenience
 id DALImplementationBlockForMethod(Method aMethod, SEL swizzledSelector, SEL originalSelector);
 id DALBlockWithVoidReturnAndNumberOfArguments(unsigned numberOfArguments, SEL swizzledSelector, SEL originalSelector);
 id DALBlockWithStructReturnAndNumberOfArguments(unsigned numberOfArguments, SEL swizzledSelector, SEL originalSelector);
 id DALBlockWithIdReturnAndNumberOfArguments(unsigned numberOfArguments, SEL swizzledSelector, SEL originalSelector);
-
-extern NSString * const DALSwizzledPrefix;
+void DALRetainAutorelease(id instance);
+char *DALCopyTypesForMethod(Method aMethod);
 
 #endif

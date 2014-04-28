@@ -7,11 +7,50 @@
 //
 
 #import "DALAppDelegate.h"
+#import "DALTestModel.h"
+#import "NSObject+DALDebugging.h"
 
 @implementation DALAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+	DALTestModel *testModel = [[DALTestModel alloc] init];
+	testModel.anObject = application;
+	testModel.aClass = [application class];
+	testModel.aSelector = _cmd;
+	testModel.aChar = 10;
+	testModel.anUnsignedChar = 20;
+	testModel.aShort = 30;
+	testModel.anUnsignedShort = 40;
+	testModel.anInt = 50;
+	testModel.anUnsignedInt = 60;
+	testModel.aLong = 70;
+	testModel.anUnsignedLong = 80;
+	testModel.aLongLong = 90;
+	testModel.anUnsignedLongLong = 100;
+	testModel.aFloat = 111.111;
+	testModel.aDouble = 123.456;
+	testModel.aBool = YES;
+	testModel.anArrayRef = CFBridgingRetain(@[@"array"]);
+	testModel.aColorRef = [UIColor redColor].CGColor;
+	testModel.aDictionaryRef = CFBridgingRetain(@{@"key": @"value"});
+	testModel.aPathRef = CGPathCreateWithRect(CGRectMake(0, 0, 100, 100), NULL);
+	testModel.aCharStar = "char star";
+	testModel.aPoint = CGPointMake(100, 200);
+	testModel.aSize = CGSizeMake(200, 300);
+	testModel.aRect = CGRectMake(100, 200, 300, 400);
+	testModel.anEdgeInsets = UIEdgeInsetsMake(10, 20, 30, 40);
+	testModel.anAffineTransform = CGAffineTransformIdentity;
+	testModel.aTransform3D = CATransform3DIdentity;
+	testModel.aStruct = (DALStruct){1,0,1,0};
+	testModel.aConstCharStar = "const char star";
+	
+	NSString *ivarsDescription = [testModel ivarsDescription];
+	NSLog(@"ivarsDescription:\n%@\n", ivarsDescription);
+	
+	NSString *methodsDescription = [testModel methodsDescription];
+	NSLog(@"methodsDescription:\n%@\n", methodsDescription);
+	
     // Override point for customization after application launch.
     return YES;
 }

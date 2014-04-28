@@ -28,9 +28,9 @@
 
 #import "UIImage+DALDebugging.h"
 
-@implementation UIImage (DALDebugging)
+@implementation UIImage (DALDebuggingObsolete)
 
-- (BOOL)saveToDocuments
+- (BOOL)DAL_saveToDocuments
 {
 	BOOL didSave = NO;
 	
@@ -43,7 +43,7 @@
 	return didSave;
 }
 
-- (NSString *)documentsPath;
+- (NSString *)DAL_documentsPath;
 {
 	NSString *documentsPath = [(NSString *)NSHomeDirectory() stringByAppendingPathComponent:@"Documents/"];
 	return documentsPath;

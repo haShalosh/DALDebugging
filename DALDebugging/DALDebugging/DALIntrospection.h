@@ -41,6 +41,9 @@ NSString *DALInstanceIvarsDescription(id instance);
 NSString *DALInstanceMethodsDescription(id instance);
 NSString *DALInstancePropertiesDescription(id instance);
 
+/// \brief This will walk the -nextResponder chain and intropect whether that instance has any properties who's value is the same as the instance. Example: Call this on a label, and it will tell you the name of the property in the view or view controller.
+NSDictionary *DALInstancePropertyNamesInNextResponderChainOfInstance(NSObject *instance);
+
 #pragma mark Protocol Introspection
 NSString *DALProtocolDescription(Protocol *aProtocol); // Not yet implemented...
 
