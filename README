@@ -1,0 +1,50 @@
+DALDebugging
+
+Why would I want to use this?
+That’s up to you, but I find it helpful in debugging.
+
+—
+
+What can it do?
+
+ApplePrivate.h
+• Shows you some private Apple methods that let you get to information you normally couldn’t easily.
+
+DALIntrospection.h
+• Introspect classes and instances.
+
+• I re-implemented the following Apple private methods as functions: -[NSObject _ivarDescription], -[NSObject _methodDescription], -[NSObject _shortMethodDescription]
+I started before I found about about these new methods introduced in iOS 7. But now I’ve replicated them functions so they can be added to other classes (NSPRoxy), and are available in iOS 6 and on the the Mac.
+
+—
+
+How can I use this in the console?
+
+• Stopped at a breakpoint in any of your classes: po [self _ivarDescription]
+
+• If you have a view's memory address (possibly gotten from KeyWindowDescription(), using Reveal App, or Spark Inspector), you can get it's property names: `po [0xMEMORY_ADDRESS propertyNames]` or `po [0xMEMORY_ADDRESS ivarNames]`
+
+• Print out the value of just about any property/ivar:
+`po [anInstance valueForKey:”myProperty”]` or `po [anInstance valueForKey:”_myIvar”]`
+This is useful for when the console isn’t letting you ‘p’ a struct (e.g. [view valueForKey:@“frame”]).
+
+—
+
+That’s good and all, but what if I don’t want to or can’t use those. What else do you have for me?
+
+• Stop on the line of code that throws an exception, instead of being at UIApplicationMain() with no stack trace. Create an Objective-C breakpoint:
+1) Select the Breakpoint Navigator (Xcode 5: COMMAND+7)
+2) In the bottom-left click the + button
+3) Click: Add Exception Breakpoint...
+4) Right-click on the "All Exceptions" breakpoint and click: Edit Breakpoint...
+5) Change "Exception (All)" to "Exception (Objective-C)
+
+• Listen to all posted notifications:
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(allNotifications:) name:nil object:nil];
+
+—
+
+TODO:
+
+• Make this a .dylib so it can be loaded while debugging
+• Create a .podspec so it can be brought in through a `pod update`

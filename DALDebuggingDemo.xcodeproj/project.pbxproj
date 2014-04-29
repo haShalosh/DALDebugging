@@ -1,0 +1,542 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		488AE219190DEEA1006879C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE218190DEEA1006879C7 /* Foundation.framework */; };
+		488AE21B190DEEA1006879C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21A190DEEA1006879C7 /* CoreGraphics.framework */; };
+		488AE21D190DEEA1006879C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21C190DEEA1006879C7 /* UIKit.framework */; };
+		488AE223190DEEA1006879C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 488AE221190DEEA1006879C7 /* InfoPlist.strings */; };
+		488AE225190DEEA1006879C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE224190DEEA1006879C7 /* main.m */; };
+		488AE229190DEEA1006879C7 /* DALAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE228190DEEA1006879C7 /* DALAppDelegate.m */; };
+		488AE22C190DEEA1006879C7 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488AE22A190DEEA1006879C7 /* Main_iPhone.storyboard */; };
+		488AE22F190DEEA1006879C7 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488AE22D190DEEA1006879C7 /* Main_iPad.storyboard */; };
+		488AE232190DEEA1006879C7 /* DALViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE231190DEEA1006879C7 /* DALViewController.m */; };
+		488AE234190DEEA1006879C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488AE233190DEEA1006879C7 /* Images.xcassets */; };
+		488AE23B190DEEA1006879C7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE23A190DEEA1006879C7 /* XCTest.framework */; };
+		488AE23C190DEEA1006879C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE218190DEEA1006879C7 /* Foundation.framework */; };
+		488AE23D190DEEA1006879C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21C190DEEA1006879C7 /* UIKit.framework */; };
+		488AE245190DEEA1006879C7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 488AE243190DEEA1006879C7 /* InfoPlist.strings */; };
+		488AE247190DEEA1006879C7 /* DALDebuggingDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE246190DEEA1006879C7 /* DALDebuggingDemoTests.m */; };
+		488AE262190DEF1E006879C7 /* DALIntrospection.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE253190DEF1E006879C7 /* DALIntrospection.m */; };
+		488AE263190DEF1E006879C7 /* NSObject+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE257190DEF1E006879C7 /* NSObject+DALDebugging.m */; };
+		488AE264190DEF1E006879C7 /* NSProxy+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE259190DEF1E006879C7 /* NSProxy+DALDebugging.m */; };
+		488AE267190DEF1E006879C7 /* UIView+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE25F190DEF1E006879C7 /* UIView+DALDebugging.m */; };
+		488AE268190DEF1E006879C7 /* UIWindow+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE261190DEF1E006879C7 /* UIWindow+DALDebugging.m */; };
+		488AE26B190E0A6D006879C7 /* DALTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 488AE26A190E0A6D006879C7 /* DALTestModel.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		488AE23E190DEEA1006879C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 488AE20D190DEEA1006879C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 488AE214190DEEA1006879C7;
+			remoteInfo = DALDebuggingDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		488AE215190DEEA1006879C7 /* DALDebuggingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DALDebuggingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		488AE218190DEEA1006879C7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		488AE21A190DEEA1006879C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		488AE21C190DEEA1006879C7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		488AE220190DEEA1006879C7 /* DALDebuggingDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DALDebuggingDemo-Info.plist"; sourceTree = "<group>"; };
+		488AE222190DEEA1006879C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		488AE224190DEEA1006879C7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		488AE226190DEEA1006879C7 /* DALDebuggingDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DALDebuggingDemo-Prefix.pch"; sourceTree = "<group>"; };
+		488AE227190DEEA1006879C7 /* DALAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DALAppDelegate.h; sourceTree = "<group>"; };
+		488AE228190DEEA1006879C7 /* DALAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DALAppDelegate.m; sourceTree = "<group>"; };
+		488AE22B190DEEA1006879C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		488AE22E190DEEA1006879C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		488AE230190DEEA1006879C7 /* DALViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DALViewController.h; sourceTree = "<group>"; };
+		488AE231190DEEA1006879C7 /* DALViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DALViewController.m; sourceTree = "<group>"; };
+		488AE233190DEEA1006879C7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		488AE239190DEEA1006879C7 /* DALDebuggingDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DALDebuggingDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		488AE23A190DEEA1006879C7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		488AE242190DEEA1006879C7 /* DALDebuggingDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DALDebuggingDemoTests-Info.plist"; sourceTree = "<group>"; };
+		488AE244190DEEA1006879C7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		488AE246190DEEA1006879C7 /* DALDebuggingDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DALDebuggingDemoTests.m; sourceTree = "<group>"; };
+		488AE251190DEF1E006879C7 /* ApplePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplePrivate.h; sourceTree = "<group>"; };
+		488AE252190DEF1E006879C7 /* DALIntrospection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALIntrospection.h; sourceTree = "<group>"; };
+		488AE253190DEF1E006879C7 /* DALIntrospection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALIntrospection.m; sourceTree = "<group>"; };
+		488AE255190DEF1E006879C7 /* DALRuntimeModification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALRuntimeModification.h; sourceTree = "<group>"; };
+		488AE256190DEF1E006879C7 /* NSObject+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DALDebugging.h"; sourceTree = "<group>"; };
+		488AE257190DEF1E006879C7 /* NSObject+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DALDebugging.m"; sourceTree = "<group>"; };
+		488AE258190DEF1E006879C7 /* NSProxy+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSProxy+DALDebugging.h"; sourceTree = "<group>"; };
+		488AE259190DEF1E006879C7 /* NSProxy+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSProxy+DALDebugging.m"; sourceTree = "<group>"; };
+		488AE25E190DEF1E006879C7 /* UIView+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DALDebugging.h"; sourceTree = "<group>"; };
+		488AE25F190DEF1E006879C7 /* UIView+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DALDebugging.m"; sourceTree = "<group>"; };
+		488AE260190DEF1E006879C7 /* UIWindow+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+DALDebugging.h"; sourceTree = "<group>"; };
+		488AE261190DEF1E006879C7 /* UIWindow+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+DALDebugging.m"; sourceTree = "<group>"; };
+		488AE269190E0A6D006879C7 /* DALTestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALTestModel.h; sourceTree = "<group>"; };
+		488AE26A190E0A6D006879C7 /* DALTestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALTestModel.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		488AE212190DEEA1006879C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488AE21B190DEEA1006879C7 /* CoreGraphics.framework in Frameworks */,
+				488AE21D190DEEA1006879C7 /* UIKit.framework in Frameworks */,
+				488AE219190DEEA1006879C7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		488AE236190DEEA1006879C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488AE23B190DEEA1006879C7 /* XCTest.framework in Frameworks */,
+				488AE23D190DEEA1006879C7 /* UIKit.framework in Frameworks */,
+				488AE23C190DEEA1006879C7 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		488AE20C190DEEA1006879C7 = {
+			isa = PBXGroup;
+			children = (
+				488AE250190DEED3006879C7 /* DALDebugging */,
+				488AE21E190DEEA1006879C7 /* DALDebuggingDemo */,
+				488AE240190DEEA1006879C7 /* DALDebuggingDemoTests */,
+				488AE217190DEEA1006879C7 /* Frameworks */,
+				488AE216190DEEA1006879C7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		488AE216190DEEA1006879C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				488AE215190DEEA1006879C7 /* DALDebuggingDemo.app */,
+				488AE239190DEEA1006879C7 /* DALDebuggingDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		488AE217190DEEA1006879C7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				488AE218190DEEA1006879C7 /* Foundation.framework */,
+				488AE21A190DEEA1006879C7 /* CoreGraphics.framework */,
+				488AE21C190DEEA1006879C7 /* UIKit.framework */,
+				488AE23A190DEEA1006879C7 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		488AE21E190DEEA1006879C7 /* DALDebuggingDemo */ = {
+			isa = PBXGroup;
+			children = (
+				488AE227190DEEA1006879C7 /* DALAppDelegate.h */,
+				488AE228190DEEA1006879C7 /* DALAppDelegate.m */,
+				488AE22A190DEEA1006879C7 /* Main_iPhone.storyboard */,
+				488AE22D190DEEA1006879C7 /* Main_iPad.storyboard */,
+				488AE230190DEEA1006879C7 /* DALViewController.h */,
+				488AE231190DEEA1006879C7 /* DALViewController.m */,
+				488AE269190E0A6D006879C7 /* DALTestModel.h */,
+				488AE26A190E0A6D006879C7 /* DALTestModel.m */,
+				488AE233190DEEA1006879C7 /* Images.xcassets */,
+				488AE21F190DEEA1006879C7 /* Supporting Files */,
+			);
+			path = DALDebuggingDemo;
+			sourceTree = "<group>";
+		};
+		488AE21F190DEEA1006879C7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				488AE220190DEEA1006879C7 /* DALDebuggingDemo-Info.plist */,
+				488AE221190DEEA1006879C7 /* InfoPlist.strings */,
+				488AE224190DEEA1006879C7 /* main.m */,
+				488AE226190DEEA1006879C7 /* DALDebuggingDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		488AE240190DEEA1006879C7 /* DALDebuggingDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				488AE246190DEEA1006879C7 /* DALDebuggingDemoTests.m */,
+				488AE241190DEEA1006879C7 /* Supporting Files */,
+			);
+			path = DALDebuggingDemoTests;
+			sourceTree = "<group>";
+		};
+		488AE241190DEEA1006879C7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				488AE242190DEEA1006879C7 /* DALDebuggingDemoTests-Info.plist */,
+				488AE243190DEEA1006879C7 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		488AE250190DEED3006879C7 /* DALDebugging */ = {
+			isa = PBXGroup;
+			children = (
+				488AE251190DEF1E006879C7 /* ApplePrivate.h */,
+				488AE252190DEF1E006879C7 /* DALIntrospection.h */,
+				488AE253190DEF1E006879C7 /* DALIntrospection.m */,
+				488AE255190DEF1E006879C7 /* DALRuntimeModification.h */,
+				488AE256190DEF1E006879C7 /* NSObject+DALDebugging.h */,
+				488AE257190DEF1E006879C7 /* NSObject+DALDebugging.m */,
+				488AE258190DEF1E006879C7 /* NSProxy+DALDebugging.h */,
+				488AE259190DEF1E006879C7 /* NSProxy+DALDebugging.m */,
+				488AE25E190DEF1E006879C7 /* UIView+DALDebugging.h */,
+				488AE25F190DEF1E006879C7 /* UIView+DALDebugging.m */,
+				488AE260190DEF1E006879C7 /* UIWindow+DALDebugging.h */,
+				488AE261190DEF1E006879C7 /* UIWindow+DALDebugging.m */,
+			);
+			path = DALDebugging;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		488AE214190DEEA1006879C7 /* DALDebuggingDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 488AE24A190DEEA1006879C7 /* Build configuration list for PBXNativeTarget "DALDebuggingDemo" */;
+			buildPhases = (
+				488AE211190DEEA1006879C7 /* Sources */,
+				488AE212190DEEA1006879C7 /* Frameworks */,
+				488AE213190DEEA1006879C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DALDebuggingDemo;
+			productName = DALDebuggingDemo;
+			productReference = 488AE215190DEEA1006879C7 /* DALDebuggingDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		488AE238190DEEA1006879C7 /* DALDebuggingDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 488AE24D190DEEA1006879C7 /* Build configuration list for PBXNativeTarget "DALDebuggingDemoTests" */;
+			buildPhases = (
+				488AE235190DEEA1006879C7 /* Sources */,
+				488AE236190DEEA1006879C7 /* Frameworks */,
+				488AE237190DEEA1006879C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				488AE23F190DEEA1006879C7 /* PBXTargetDependency */,
+			);
+			name = DALDebuggingDemoTests;
+			productName = DALDebuggingDemoTests;
+			productReference = 488AE239190DEEA1006879C7 /* DALDebuggingDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		488AE20D190DEEA1006879C7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = DAL;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Daniel Leber";
+				TargetAttributes = {
+					488AE238190DEEA1006879C7 = {
+						TestTargetID = 488AE214190DEEA1006879C7;
+					};
+				};
+			};
+			buildConfigurationList = 488AE210190DEEA1006879C7 /* Build configuration list for PBXProject "DALDebuggingDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 488AE20C190DEEA1006879C7;
+			productRefGroup = 488AE216190DEEA1006879C7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				488AE214190DEEA1006879C7 /* DALDebuggingDemo */,
+				488AE238190DEEA1006879C7 /* DALDebuggingDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		488AE213190DEEA1006879C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488AE22F190DEEA1006879C7 /* Main_iPad.storyboard in Resources */,
+				488AE234190DEEA1006879C7 /* Images.xcassets in Resources */,
+				488AE22C190DEEA1006879C7 /* Main_iPhone.storyboard in Resources */,
+				488AE223190DEEA1006879C7 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		488AE237190DEEA1006879C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488AE245190DEEA1006879C7 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		488AE211190DEEA1006879C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488AE267190DEF1E006879C7 /* UIView+DALDebugging.m in Sources */,
+				488AE229190DEEA1006879C7 /* DALAppDelegate.m in Sources */,
+				488AE225190DEEA1006879C7 /* main.m in Sources */,
+				488AE264190DEF1E006879C7 /* NSProxy+DALDebugging.m in Sources */,
+				488AE232190DEEA1006879C7 /* DALViewController.m in Sources */,
+				488AE262190DEF1E006879C7 /* DALIntrospection.m in Sources */,
+				488AE268190DEF1E006879C7 /* UIWindow+DALDebugging.m in Sources */,
+				488AE26B190E0A6D006879C7 /* DALTestModel.m in Sources */,
+				488AE263190DEF1E006879C7 /* NSObject+DALDebugging.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		488AE235190DEEA1006879C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				488AE247190DEEA1006879C7 /* DALDebuggingDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		488AE23F190DEEA1006879C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 488AE214190DEEA1006879C7 /* DALDebuggingDemo */;
+			targetProxy = 488AE23E190DEEA1006879C7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		488AE221190DEEA1006879C7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				488AE222190DEEA1006879C7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		488AE22A190DEEA1006879C7 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				488AE22B190DEEA1006879C7 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		488AE22D190DEEA1006879C7 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				488AE22E190DEEA1006879C7 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		488AE243190DEEA1006879C7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				488AE244190DEEA1006879C7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		488AE248190DEEA1006879C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		488AE249190DEEA1006879C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		488AE24B190DEEA1006879C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DALDebuggingDemo/DALDebuggingDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEMO=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DALDebuggingDemo/DALDebuggingDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		488AE24C190DEEA1006879C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DALDebuggingDemo/DALDebuggingDemo-Prefix.pch";
+				INFOPLIST_FILE = "DALDebuggingDemo/DALDebuggingDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		488AE24E190DEEA1006879C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DALDebuggingDemo.app/DALDebuggingDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DALDebuggingDemo/DALDebuggingDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "DALDebuggingDemoTests/DALDebuggingDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		488AE24F190DEEA1006879C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DALDebuggingDemo.app/DALDebuggingDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DALDebuggingDemo/DALDebuggingDemo-Prefix.pch";
+				INFOPLIST_FILE = "DALDebuggingDemoTests/DALDebuggingDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		488AE210190DEEA1006879C7 /* Build configuration list for PBXProject "DALDebuggingDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				488AE248190DEEA1006879C7 /* Debug */,
+				488AE249190DEEA1006879C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		488AE24A190DEEA1006879C7 /* Build configuration list for PBXNativeTarget "DALDebuggingDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				488AE24B190DEEA1006879C7 /* Debug */,
+				488AE24C190DEEA1006879C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		488AE24D190DEEA1006879C7 /* Build configuration list for PBXNativeTarget "DALDebuggingDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				488AE24E190DEEA1006879C7 /* Debug */,
+				488AE24F190DEEA1006879C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 488AE20D190DEEA1006879C7 /* Project object */;
+}
