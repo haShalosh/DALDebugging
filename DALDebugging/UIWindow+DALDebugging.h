@@ -30,13 +30,16 @@
 
 @interface UIWindow (DALDebugging)
 
+/// \brief This calls: [[[UIApplication sharedApplication] keyWindow] recursiveDescription]
++ (id)keyWindowDescription;
+
 // Note: I'm not sure if these work anymore...
 - (void)enableSlowAnimations;
 - (void)disableSlowAnimations;
 
 @end
 
-/// \brief This calls: [[[UIApplication sharedApplication] keyWindow] recursiveDescription]
+/// \brief This is deprecated and will be removed soon. Use +[UIWindow keyWindowDescription] instead.
 OBJC_EXPORT id KeyWindowDescription(void);
 
 #endif

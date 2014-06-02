@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		481ED1271935B86200D9C864 /* NSString+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 481ED1261935B86200D9C864 /* NSString+DALDebugging.m */; };
 		488AE219190DEEA1006879C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE218190DEEA1006879C7 /* Foundation.framework */; };
 		488AE21B190DEEA1006879C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21A190DEEA1006879C7 /* CoreGraphics.framework */; };
 		488AE21D190DEEA1006879C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21C190DEEA1006879C7 /* UIKit.framework */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		481ED1251935B86200D9C864 /* NSString+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DALDebugging.h"; sourceTree = "<group>"; };
+		481ED1261935B86200D9C864 /* NSString+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DALDebugging.m"; sourceTree = "<group>"; };
 		488AE215190DEEA1006879C7 /* DALDebuggingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DALDebuggingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		488AE218190DEEA1006879C7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		488AE21A190DEEA1006879C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -189,6 +192,8 @@
 				488AE257190DEF1E006879C7 /* NSObject+DALDebugging.m */,
 				488AE258190DEF1E006879C7 /* NSProxy+DALDebugging.h */,
 				488AE259190DEF1E006879C7 /* NSProxy+DALDebugging.m */,
+				481ED1251935B86200D9C864 /* NSString+DALDebugging.h */,
+				481ED1261935B86200D9C864 /* NSString+DALDebugging.m */,
 				488AE25E190DEF1E006879C7 /* UIView+DALDebugging.h */,
 				488AE25F190DEF1E006879C7 /* UIView+DALDebugging.m */,
 				488AE260190DEF1E006879C7 /* UIWindow+DALDebugging.h */,
@@ -302,6 +307,7 @@
 				488AE264190DEF1E006879C7 /* NSProxy+DALDebugging.m in Sources */,
 				488AE232190DEEA1006879C7 /* DALViewController.m in Sources */,
 				488AE262190DEF1E006879C7 /* DALIntrospection.m in Sources */,
+				481ED1271935B86200D9C864 /* NSString+DALDebugging.m in Sources */,
 				488AE268190DEF1E006879C7 /* UIWindow+DALDebugging.m in Sources */,
 				488AE26B190E0A6D006879C7 /* DALTestModel.m in Sources */,
 				488AE263190DEF1E006879C7 /* NSObject+DALDebugging.m in Sources */,

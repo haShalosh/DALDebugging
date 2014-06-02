@@ -1,9 +1,9 @@
 //
-//  UIWindow+DALDebugging.m
+//  NSString+DALDebugging.h
 //  DALDebugging
 //
-//  Created by Daniel Leber on 10/19/13.
-//  Copyright (c) 2013 Daniel Leber. All rights reserved.
+//  Created by Daniel Leber on 5/27/14.
+//  Copyright (c) 2014 Daniel Leber. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to
@@ -24,36 +24,14 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
+#if DEBUG
 
-#import "UIWindow+DALDebugging.h"
-#import "ApplePrivate.h"
+#import <Foundation/Foundation.h>
 
-@implementation UIWindow (DALDebugging)
+@interface NSString (DALDebugging)
 
-+ (id)keyWindowDescription
-{
-	return [[[UIApplication sharedApplication] keyWindow] recursiveDescription];
-}
-
-#pragma mark - Animation timing
-
-- (void)enableSlowAnimations;
-{
-	[[self layer] setSpeed:0.1];
-}
-
-- (void)disableSlowAnimations;
-{
-	[[self layer] setSpeed:1.0];
-}
++ (NSString *)bitmaskRepresentationOfNSUInteger:(NSUInteger)anUnsignedInteger;
 
 @end
-
-id KeyWindowDescription(void)
-{
-	NSLog(@"Warning: This function is deprecated and will be removed soon. Use +[UIWindow keyWindowDescription] instead.");
-	return [UIWindow keyWindowDescription];
-}
 
 #endif

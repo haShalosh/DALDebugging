@@ -96,26 +96,14 @@
 	return viewController;
 }
 
-- (NSString *)propertyNames
+- (id)ivarNames
 {
-	NSMutableArray *propertyNames = [NSMutableArray array];
-	
-	UIResponder *nextResponder = [self nextResponder];
-	while (nextResponder)
-	{
-		NSDictionary *nextResponderPropertyNamesAndObjectMemoryAddresses = DALInstancePropertyNamesInNextResponderChainOfInstance(nextResponder);
-		
-		NSString *theObject = [NSString stringWithFormat:@"%p", self];
-		NSArray *nextResponderPropertyNames = [nextResponderPropertyNamesAndObjectMemoryAddresses allKeysForObject:theObject];
-		for (NSString *propertyName in nextResponderPropertyNames)
-		{
-			[propertyNames addObject:propertyName];
-		}
-		
-		nextResponder = [nextResponder nextResponder];
-	}
-	
-	return [propertyNames description];
+	return DALInstanceIvarNamesInNextResponderChainOfInstance(self);
+}
+
+- (id)propertyNames
+{
+	return DALInstancePropertyNamesInNextResponderChainOfInstance(self);
 }
 
 @end
