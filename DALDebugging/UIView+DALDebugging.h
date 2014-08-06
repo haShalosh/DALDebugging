@@ -35,13 +35,11 @@
  */
 @interface UIView (DALDebugging)
 
-/// \brief Travels the next responder chain, logging when the value of any if their Ivars is this instance.
-- (NSString *)ivarNames;
-/// \brief Travels the next responder chain, logging when the value of any if their Properties is this instance.
-- (NSString *)propertyNames;
-
 /// \brief The view controller whose view property is this instance.
 /// \return If nil, no view controller's view property is this instance.
+- (UIViewController *)DALViewController;
+
+// convenience
 - (UIViewController *)viewController;
 
 @end

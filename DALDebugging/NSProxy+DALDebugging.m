@@ -38,11 +38,11 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(_ivarDescription), @selector(DAL_ivarDescription));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(_methodDescription), @selector(DAL_methodDescription));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(_shortMethodDescription), @selector(DAL_shortMethodDescription));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(__ivarDescriptionForClass:), @selector(DAL__ivarDescriptionForClass:));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(__methodDescriptionForClass:), @selector(DAL__methodDescriptionForClass:));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_ivarDescription),				@selector(_ivarDescription));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_methodDescription),			@selector(_methodDescription));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_shortMethodDescription),		@selector(_shortMethodDescription));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL__ivarDescriptionForClass:),	@selector(__ivarDescriptionForClass:));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL__methodDescriptionForClass:),	@selector(__methodDescriptionForClass:));
 	});
 }
 

@@ -10,4 +10,6 @@
 
 @interface DALViewController : UIViewController
 
+@property (nonatomic, weak) IBOutlet UIButton *firstButton;
+
 @end

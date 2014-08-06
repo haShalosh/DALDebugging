@@ -37,15 +37,18 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		
-		DALSwizzleClassOriginalSelectorSwizzledSelector(self, @selector(description), @selector(DAL_description));
+		DALSwizzleClassOriginalSelectorWithSwizzledSelector(self, @selector(description), @selector(DALDescription));
+		
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALDebugQuickLookObject), @selector(debugQuickLookObject));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALViewController), @selector(viewController));
 	});
 }
 
-- (NSString *)DAL_description
+- (NSString *)DALDescription
 {
-	NSString *description = [self DAL_description];
+	NSString *description = [self DALDescription];
 	
-	UIViewController *viewController = [self viewController];
+	UIViewController *viewController = [self DALViewController];
 	if (viewController)
 	{
 		description = [description stringByAppendingFormat:@"; view controller: %@", viewController];
@@ -54,7 +57,7 @@
 	return description;
 }
 
-- (id)DAL_debugQuickLookObject
+- (id)DALDebugQuickLookObject
 {
 	UIImage *image = nil;
 	
@@ -83,7 +86,7 @@
 
 #pragma mark - Public
 
-- (UIViewController *)viewController
+- (UIViewController *)DALViewController
 {
 	UIViewController *viewController = nil;
 	
@@ -94,16 +97,6 @@
 	}
 	
 	return viewController;
-}
-
-- (id)ivarNames
-{
-	return DALInstanceIvarNamesInNextResponderChainOfInstance(self);
-}
-
-- (id)propertyNames
-{
-	return DALInstancePropertyNamesInNextResponderChainOfInstance(self);
 }
 
 @end

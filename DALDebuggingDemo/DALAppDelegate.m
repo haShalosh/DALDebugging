@@ -58,8 +58,8 @@
 //	NSString *proxyMethodDescription = [proxy _methodDescription];
 //	NSString *proxyShortMethodDescription = [proxy _shortMethodDescription];
 	
-    // Override point for customization after application launch.
-    return YES;
+	// Override point for customization after application launch.
+	return YES;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

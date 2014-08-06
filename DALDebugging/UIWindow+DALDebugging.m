@@ -27,33 +27,31 @@
 #if TARGET_OS_IPHONE && DEBUG
 
 #import "UIWindow+DALDebugging.h"
+#import "DALRuntimeModification.h"
 #import "ApplePrivate.h"
 
 @implementation UIWindow (DALDebugging)
 
-+ (id)keyWindowDescription
++ (void)load
 {
-	return [[[UIApplication sharedApplication] keyWindow] recursiveDescription];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALEnableSlowAnimations), @selector(enableSlowAnimations));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALDisableSlowAnimations), @selector(disableSlowAnimations));
+	});
 }
 
-#pragma mark - Animation timing
-
-- (void)enableSlowAnimations;
+- (void)DALEnableSlowAnimations;
 {
 	[[self layer] setSpeed:0.1];
 }
 
-- (void)disableSlowAnimations;
+- (void)DALDisableSlowAnimations;
 {
 	[[self layer] setSpeed:1.0];
 }
 
 @end
-
-id KeyWindowDescription(void)
-{
-	NSLog(@"Warning: This function is deprecated and will be removed soon. Use +[UIWindow keyWindowDescription] instead.");
-	return [UIWindow keyWindowDescription];
-}
 
 #endif

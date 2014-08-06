@@ -28,18 +28,17 @@
 
 #import <UIKit/UIKit.h>
 
+// Note: Use [[UIWindow keyWindow] recursiveDescription] to get a text representation of the view hierarchy.
+
 @interface UIWindow (DALDebugging)
 
-/// \brief This calls: [[[UIApplication sharedApplication] keyWindow] recursiveDescription]
-+ (id)keyWindowDescription;
+- (void)DALEnableSlowAnimations;
+- (void)DALDisableSlowAnimations;
 
-// Note: I'm not sure if these work anymore...
+// convenience
 - (void)enableSlowAnimations;
 - (void)disableSlowAnimations;
 
 @end
-
-/// \brief This is deprecated and will be removed soon. Use +[UIWindow keyWindowDescription] instead.
-OBJC_EXPORT id KeyWindowDescription(void);
 
 #endif

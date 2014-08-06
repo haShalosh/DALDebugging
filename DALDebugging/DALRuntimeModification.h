@@ -31,17 +31,17 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
-static inline void DALAddImplementationOfSelectorToSelectorIfNeeded(Class aClass, SEL originalSelector, SEL implementedSelector)
+static inline void DALAddImplementationOfSelectorToSelectorIfNeeded(Class aClass, SEL implementedSelector, SEL toSelector)
 {
-	Method originalMethod = class_getInstanceMethod(aClass, originalSelector);
-	Method swizzledMethod = class_getInstanceMethod(aClass, implementedSelector);
-	if (originalMethod == nil)
+	Method implementedMethod = class_getInstanceMethod(aClass, implementedSelector);
+	Method toMethod = class_getInstanceMethod(aClass, toSelector);
+	if (toMethod == nil)
 	{
-		class_addMethod(aClass, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+		class_addMethod(aClass, toSelector, method_getImplementation(implementedMethod), method_getTypeEncoding(implementedMethod));
 	}
 }
 
-static inline void DALSwizzleClassOriginalSelectorSwizzledSelector(Class aClass, SEL originalSelector, SEL swizzledSelector)
+static inline void DALSwizzleClassOriginalSelectorWithSwizzledSelector(Class aClass, SEL originalSelector, SEL swizzledSelector)
 {
 	Method originalMethod = class_getInstanceMethod(aClass, originalSelector);
 	Method swizzledMethod = class_getInstanceMethod(aClass, swizzledSelector);

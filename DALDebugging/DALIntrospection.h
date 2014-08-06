@@ -42,8 +42,4 @@ OBJC_EXPORT id DAL_shortMethodDescription(id instance);
 OBJC_EXPORT id DAL__ivarDescriptionForClass(id instance, Class aClass);
 OBJC_EXPORT id DAL__methodDescriptionForClass(id instance, Class aClass);
 
-/// \brief These travel the next responder chain and intropect whether that responder has any ivars/properties who's value is the same as the instance. Example: Call this on a label, and it will tell you the name in the view(s) and/or view controller(s).
-OBJC_EXPORT id DALInstanceIvarNamesInNextResponderChainOfInstance(id instance);
-OBJC_EXPORT id DALInstancePropertyNamesInNextResponderChainOfInstance(id instance);
-
 #endif

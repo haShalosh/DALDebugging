@@ -78,6 +78,7 @@
 #pragma mark -
 @interface UIWindow (DALApplePrivate)
 
++ (id)keyWindow;
 - (id)representation;
 
 @end

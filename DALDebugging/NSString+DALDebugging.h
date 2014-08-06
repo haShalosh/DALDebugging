@@ -30,6 +30,9 @@
 
 @interface NSString (DALDebugging)
 
++ (NSString *)DALBitmaskRepresentationOfNSUInteger:(NSUInteger)anUnsignedInteger;
+
+// Convenience
 + (NSString *)bitmaskRepresentationOfNSUInteger:(NSUInteger)anUnsignedInteger;
 
 @end

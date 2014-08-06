@@ -1,8 +1,8 @@
 //
-//  NSString+DALDebugging.m
-//  DALDebugging
+//  UIResponder+DALDebugging.h
+//  DALDebuggingDemo
 //
-//  Created by Daniel Leber on 5/27/14.
+//  Created by Daniel Leber on 7/28/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,47 +24,20 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
+#if TARGET_OS_IPHONE && DEBUG
 
-#import "NSString+DALDebugging.h"
-#import "DALRuntimeModification.h"
+#import <UIKit/UIKit.h>
 
-@implementation NSString (DALDebugging)
+@interface UIResponder (DALDebugging)
 
-+ (void)load
-{
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALBitmaskRepresentationOfNSUInteger:), @selector(bitmaskRepresentationOfNSUInteger:));
-	});
-}
+/// \brief Travels the next responder chain, logging when the value of any if their Ivars is this instance.
+- (NSString *)DALIvarNames;
+/// \brief Travels the next responder chain, logging when the value of any if their Properties is this instance.
+- (NSString *)DALPropertyNames;
 
-+ (NSString *)DALBitmaskRepresentationOfNSUInteger:(NSUInteger)anUnsignedInteger;
-{
-	NSMutableString *string = [[NSMutableString alloc] init];
-	
-	NSUInteger spacing = pow(2, 3);
-	NSUInteger width = sizeof(anUnsignedInteger) * spacing;
-	NSUInteger binaryDigit = 0;
-	
-	while (binaryDigit < width)
-	{
-		binaryDigit++;
-		
-		NSString *digit = (anUnsignedInteger & 1) ? @"1" : @"0";
-		[string insertString:digit atIndex:0];
-		
-		if ( (binaryDigit % spacing == 0) && (binaryDigit != width) )
-		{
-			[string insertString:@" " atIndex:0];
-		}
-		
-		anUnsignedInteger = anUnsignedInteger >> 1;
-	}
-	
-	return string;
-}
+// Convenience
+- (NSString *)ivarNames;
+- (NSString *)propertyNames;
 
 @end
 

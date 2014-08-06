@@ -30,6 +30,14 @@
 
 @interface NSProxy (DALDebugging)
 
+- (id)DAL_ivarDescription;
+- (id)DAL_methodDescription;
+- (id)DAL_shortMethodDescription;
+
+- (id)DAL__ivarDescriptionForClass:(Class)aClass;
+- (id)DAL__methodDescriptionForClass:(Class)aClass;
+
+// Convenience
 - (id)_ivarDescription;
 - (id)_methodDescription;
 - (id)_shortMethodDescription;

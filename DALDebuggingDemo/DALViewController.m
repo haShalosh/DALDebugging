@@ -7,7 +7,7 @@
 //
 
 #import "DALViewController.h"
-#import "DALIntrospection.h"
+#import "UIResponder+DALDebugging.h"
 
 @interface DALViewController ()
 
@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -26,16 +26,17 @@
 	[super viewDidAppear:animated];
 	
 	// Testing getting ivar and property names
-	id ivarNames = DALInstanceIvarNamesInNextResponderChainOfInstance(self.view);
-	id propertyNames = DALInstancePropertyNamesInNextResponderChainOfInstance(self.view);
+	id ivarNames = [self.firstButton DALIvarNames];
+	id propertyNames = [self.firstButton DALPropertyNames];
 	
-	NSLog(@"");
+	NSLog(@"self.view ivar names:\n%@\n", ivarNames);
+	NSLog(@"self.view property names:\n%@\n", propertyNames);
 }
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 @end

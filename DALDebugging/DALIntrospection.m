@@ -573,7 +573,7 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 	char firstChar = typeEncoding[0];
 	switch (firstChar)
 	{
-		case _C_ID:       // '@'
+		case _C_ID:		// '@'
 		{
 			if (strlen(typeEncoding) == 1)
 			{
@@ -617,83 +617,83 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 		}
 			break;
 			
-		case _C_CLASS:    // '#'
+		case _C_CLASS:		// '#'
 			description = @"Class";
 			break;
 			
-		case _C_SEL:      // ':'
+		case _C_SEL:		// ':'
 			description = @"SEL";
 			break;
 			
-		case _C_UCHR:     // 'C'
+		case _C_UCHR:		// 'C'
 			description = @"unsigned char";
 			break;
 			
-		case _C_SHT:      // 's'
+		case _C_SHT:		// 's'
 			description = @"short";
 			break;
 			
-		case _C_USHT:     // 'S'
-			description = @"unsigned short";
+		case _C_USHT:		// 'S'
+			description	= @"unsigned short";
 			break;
 			
-		case _C_INT:      // 'i'
+		case _C_INT:		// 'i'
 			description = @"int";
 			break;
 			
-		case _C_UINT:     // 'I'
+		case _C_UINT:		// 'I'
 			description = @"unsigned int";
 			break;
 			
-		case _C_LNG:      // 'l'
+		case _C_LNG:		// 'l'
 			description = @"long";
 			break;
 			
-		case _C_ULNG:     // 'L'
+		case _C_ULNG:		// 'L'
 			description = @"unsigned long";
 			break;
 			
-		case _C_LNG_LNG:  // 'q'
+		case _C_LNG_LNG:	// 'q'
 			description = @"long long";
 			break;
 			
-		case _C_ULNG_LNG: // 'Q'
+		case _C_ULNG_LNG:	// 'Q'
 			description = @"unsigned long long";
 			break;
 			
-		case _C_FLT:      // 'f'
+		case _C_FLT:		// 'f'
 			description = @"float";
 			break;
 			
-		case _C_DBL:      // 'd'
+		case _C_DBL:		// 'd'
 			description = @"double";
 			break;
 			
-		case _C_BFLD:     // 'b'
+		case _C_BFLD:		// 'b'
 			description = @"BFLD";
 			break;
 			
-		case _C_CHR:      // 'c' // A BOOL is encoded an a char. Apple's -_methodDescription behaves this way.
-		case _C_BOOL:     // 'B'
+		case _C_CHR:		// 'c' // A BOOL is encoded an a char. Apple's -_methodDescription behaves this way.
+		case _C_BOOL:		// 'B'
 			description = @"BOOL";
 			break;
 			
-		case _C_VOID:     // 'v'
+		case _C_VOID:		// 'v'
 			description = @"void";
 			break;
 			
-		case DAL_C_ONEWAY:
+		case DAL_C_ONEWAY:	// 'V'
 			if (strlen(typeEncoding) >= 2 && typeEncoding[1] == _C_VOID)
 			{
 				description = @"oneway void";
 			}
 			break;
 			
-		case _C_UNDEF:    // '?'
+		case _C_UNDEF:		// '?'
 			description = [NSString stringWithFormat:@"%c", _C_UNDEF];
 			break;
 			
-		case _C_PTR:      // '^'
+		case _C_PTR:		// '^'
 		{
 			NSString *subDescription = DAL___typeEncodingDescription(typeEncoding + 1);
 			description = [subDescription stringByAppendingString:@"*"];
@@ -701,11 +701,11 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 		}
 			break;
 			
-		case _C_CHARPTR:  // '*'
+		case _C_CHARPTR:	// '*'
 			description = @"char*";
 			break;
 			
-		case _C_STRUCT_B: // '{'
+		case _C_STRUCT_B:	// '{'
 		{
 			if (strlen(typeEncoding) > 1 && typeEncoding[1] == _C_UNDEF)
 			{
@@ -732,15 +732,15 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 		}
 			break;
 			
-		case _C_CONST:    // 'r'
+		case _C_CONST:		// 'r'
 		{
 			NSString *subDescription = DAL___typeEncodingDescription(typeEncoding + 1);
 			description = [NSString stringWithFormat:@"const %@", subDescription];
 		}
 			break;
 			
-		case DAL_C_INOUT:
-		case DAL_C_OUT:
+		case DAL_C_INOUT:	// 'N'
+		case DAL_C_OUT:		// 'o'
 		{
 			NSString *prefix = nil;
 			
@@ -770,11 +770,11 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 				char aChar = typeEncoding[i];
 				switch (aChar)
 				{
-					case _C_PTR:
+					case _C_PTR:	// '^'
 						isPointer = YES;
 						break;
 						
-					case _C_ID:
+					case _C_ID:		// '@'
 						isID = YES;
 						break;
 						
@@ -803,13 +803,13 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 		}
 			break;
 			
-		case _C_ATOM:     // '%'
-		case _C_ARY_B:    // '['
-		case _C_ARY_E:    // ']'
-		case _C_UNION_B:  // '('
-		case _C_UNION_E:  // ')'
-		case _C_STRUCT_E: // '}'
-		case _C_VECTOR:   // '!'
+		case _C_ATOM:		// '%'
+		case _C_ARY_B:		// '['
+		case _C_ARY_E:		// ']'
+		case _C_UNION_B:	// '('
+		case _C_UNION_E:	// ')'
+		case _C_STRUCT_E:	// '}'
+		case _C_VECTOR:		// '!'
 		case 'D': // +[PFUbiquityBaseline requiredFractionOfDiskSpaceUsedForLogs];
 		case 'R': // -[_UIViewServiceSession __requestConnectionToDeputyOfClass:fromHostObject:replyHandler:];
 		default:
@@ -888,149 +888,5 @@ id DAL___propertyAttributeDescription(objc_property_attribute_t attribute)
 	
 	return description;
 }
-
-#pragma mark -
-#pragma mark -
-
-id DALInstanceIvarNamesInNextResponderChainOfInstance(id instance)
-{
-	NSMutableString *description = [NSMutableString string];
-	
-	[description appendFormat:@"<%@: %p> in Ivars:\n", NSStringFromClass([instance class]), instance];
-	
-	id nextResponder = [instance nextResponder];
-	while (nextResponder)
-	{
-		Class aClass = [nextResponder class];
-		while (aClass)
-		{
-			unsigned int count = 0;
-			Ivar *list = class_copyIvarList(aClass, &count);
-			for (unsigned int i = 0; i < count; i++)
-			{
-				Ivar anIvar = list[i];
-				
-				const char *typeEncoding = ivar_getTypeEncoding(anIvar);
-				if (typeEncoding[0] == _C_ID)
-				{
-					NSString *key = @(ivar_getName(anIvar));
-					
-					id value = nil;
-					@try
-					{
-						if ([nextResponder respondsToSelector:@selector(valueForKey:)])
-						{
-							value = [nextResponder valueForKey:key];
-						}
-						else
-						{
-							value = object_getIvar(nextResponder, anIvar);
-						}
-					}
-					@catch (NSException *exception)
-					{
-#if DEMO
-						NSLog(@"Error! %@", exception);
-#endif
-					}
-					
-					if (value == instance)
-					{
-						[description appendFormat:@"\t'%@' in <%@: %p> (declared in %@)\n", key, NSStringFromClass([nextResponder class]), nextResponder, NSStringFromClass(aClass)];
-					}
-				}
-			}
-			
-			if (list)
-			{
-				free(list);
-			}
-			
-			aClass = [aClass superclass];
-		}
-		
-		nextResponder = [nextResponder nextResponder];
-	}
-	
-	return description;
-}
-
-id DALInstancePropertyNamesInNextResponderChainOfInstance(id instance)
-{
-	NSMutableString *description = [NSMutableString string];
-	
-	[description appendFormat:@"<%@: %p> in Properties:\n", NSStringFromClass([instance class]), instance];
-	
-	id nextResponder = [instance nextResponder];
-	while (nextResponder)
-	{
-		Class aClass = [nextResponder class];
-		while (aClass)
-		{
-			unsigned int count = 0;
-			objc_property_t *list = class_copyPropertyList(aClass, &count);
-			for (unsigned int i = 0; i < count; i++)
-			{
-				objc_property_t aProperty = list[i];
-				
-				char *attributeValueType = property_copyAttributeValue(aProperty, "T");
-				if (attributeValueType[0] == _C_ID)
-				{
-					NSString *key = @(property_getName(aProperty));
-					
-					id value = nil;
-					@try
-					{
-						if ([nextResponder respondsToSelector:@selector(valueForKey:)])
-						{
-							value = [nextResponder valueForKey:key];
-						}
-						else
-						{
-							char *getter = property_copyAttributeValue(aProperty, "G");
-							if (getter)
-							{
-								key = @(getter);
-								
-								free(getter);
-							}
-							
-							value = objc_msgSend(nextResponder, NSSelectorFromString(key));
-						}
-					}
-					@catch (NSException *exception)
-					{
-#if DEMO
-						NSLog(@"Error! %@", exception);
-#endif
-					}
-					
-					if (value == instance)
-					{
-						[description appendFormat:@"\t'%@' in <%@: %p> (declared in %@)\n", key, NSStringFromClass([nextResponder class]), nextResponder, NSStringFromClass(aClass)];
-					}
-				}
-				
-				if (attributeValueType)
-				{
-					free(attributeValueType);
-				}
-			}
-			
-			if (list)
-			{
-				free(list);
-			}
-			
-			aClass = [aClass superclass];
-		}
-		
-		nextResponder = [nextResponder nextResponder];
-	}
-	
-	return description;
-}
-
-
 
 #endif
