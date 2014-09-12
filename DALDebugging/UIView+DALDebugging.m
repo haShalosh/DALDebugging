@@ -37,16 +37,16 @@
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		
-		DALSwizzleClassOriginalSelectorWithSwizzledSelector(self, @selector(description), @selector(DALDescription));
+		DALSwizzleClassOriginalSelectorWithSwizzledSelector(self, @selector(description), @selector(DALSwizzledDescription));
 		
 		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALDebugQuickLookObject), @selector(debugQuickLookObject));
 		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALViewController), @selector(viewController));
 	});
 }
 
-- (NSString *)DALDescription
+- (NSString *)DALSwizzledDescription
 {
-	NSString *description = [self DALDescription];
+	NSString *description = [self DALSwizzledDescription];
 	
 	UIViewController *viewController = [self DALViewController];
 	if (viewController)

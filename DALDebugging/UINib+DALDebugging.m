@@ -1,8 +1,8 @@
 //
-//  UIResponder+DALDebugging.h
+//  UINib+DALDebugging.m
 //  DALDebugging
 //
-//  Created by Daniel Leber on 7/28/14.
+//  Created by Daniel Leber on 9/11/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,18 +26,29 @@
 
 #if TARGET_OS_IPHONE && DEBUG
 
-#import <UIKit/UIKit.h>
+#import "UINib+DALDebugging.h"
+#import "DALRuntimeModification.h"
 
-@interface UIResponder (DALDebugging)
+@implementation UINib (DALDebugging)
 
-/// \brief Travels the next responder chain, logging when the value of any if their Ivars is this instance.
-- (NSString *)DALIvarNames;
-/// \brief Travels the next responder chain, logging when the value of any if their Properties is this instance.
-- (NSString *)DALPropertyNames;
++ (void)load
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALName), @selector(name));
+	});
+}
 
-// Convenience
-- (NSString *)ivarNames;
-- (NSString *)propertyNames;
+- (NSString *)DALNibName
+{
+	NSString *name = nil;
+	
+	id nibStorage = [self valueForKey:@"storage"];
+	name = [nibStorage valueForKey:@"bundleResourceName"];
+	
+	return name;
+}
 
 @end
 

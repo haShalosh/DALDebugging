@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4802544619C270E6007F00F0 /* UITableViewCell+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802544519C270E6007F00F0 /* UITableViewCell+DALDebugging.m */; };
+		4802544919C278F9007F00F0 /* UICollectionReusableView+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802544819C278F9007F00F0 /* UICollectionReusableView+DALDebugging.m */; };
+		4802544C19C27977007F00F0 /* UINib+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802544B19C27977007F00F0 /* UINib+DALDebugging.m */; };
+		4802545019C27C22007F00F0 /* DALTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802544E19C27C22007F00F0 /* DALTableViewCell.m */; };
+		4802545119C27C22007F00F0 /* DALTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4802544F19C27C22007F00F0 /* DALTableViewCell.xib */; };
+		4802545419C27C47007F00F0 /* DALTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802545319C27C47007F00F0 /* DALTableViewController.m */; };
+		4802545719C27C67007F00F0 /* DALCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802545619C27C67007F00F0 /* DALCollectionViewController.m */; };
+		4802545A19C27C81007F00F0 /* DALCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802545919C27C81007F00F0 /* DALCollectionViewCell.m */; };
+		4802545E19C284E2007F00F0 /* DALCollectionVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4802545D19C284E2007F00F0 /* DALCollectionVIewCell.xib */; };
 		481ED1271935B86200D9C864 /* NSString+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 481ED1261935B86200D9C864 /* NSString+DALDebugging.m */; };
 		488AE219190DEEA1006879C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE218190DEEA1006879C7 /* Foundation.framework */; };
 		488AE21B190DEEA1006879C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21A190DEEA1006879C7 /* CoreGraphics.framework */; };
@@ -43,6 +52,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4802544419C270E6007F00F0 /* UITableViewCell+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+DALDebugging.h"; sourceTree = "<group>"; };
+		4802544519C270E6007F00F0 /* UITableViewCell+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+DALDebugging.m"; sourceTree = "<group>"; };
+		4802544719C278F9007F00F0 /* UICollectionReusableView+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionReusableView+DALDebugging.h"; sourceTree = "<group>"; };
+		4802544819C278F9007F00F0 /* UICollectionReusableView+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionReusableView+DALDebugging.m"; sourceTree = "<group>"; };
+		4802544A19C27977007F00F0 /* UINib+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINib+DALDebugging.h"; sourceTree = "<group>"; };
+		4802544B19C27977007F00F0 /* UINib+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINib+DALDebugging.m"; sourceTree = "<group>"; };
+		4802544D19C27C22007F00F0 /* DALTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALTableViewCell.h; sourceTree = "<group>"; };
+		4802544E19C27C22007F00F0 /* DALTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALTableViewCell.m; sourceTree = "<group>"; };
+		4802544F19C27C22007F00F0 /* DALTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DALTableViewCell.xib; sourceTree = "<group>"; };
+		4802545219C27C47007F00F0 /* DALTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALTableViewController.h; sourceTree = "<group>"; };
+		4802545319C27C47007F00F0 /* DALTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALTableViewController.m; sourceTree = "<group>"; };
+		4802545519C27C67007F00F0 /* DALCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALCollectionViewController.h; sourceTree = "<group>"; };
+		4802545619C27C67007F00F0 /* DALCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALCollectionViewController.m; sourceTree = "<group>"; };
+		4802545819C27C81007F00F0 /* DALCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALCollectionViewCell.h; sourceTree = "<group>"; };
+		4802545919C27C81007F00F0 /* DALCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALCollectionViewCell.m; sourceTree = "<group>"; };
+		4802545D19C284E2007F00F0 /* DALCollectionVIewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DALCollectionVIewCell.xib; sourceTree = "<group>"; };
 		481ED1251935B86200D9C864 /* NSString+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DALDebugging.h"; sourceTree = "<group>"; };
 		481ED1261935B86200D9C864 /* NSString+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DALDebugging.m"; sourceTree = "<group>"; };
 		488AE215190DEEA1006879C7 /* DALDebuggingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DALDebuggingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +176,16 @@
 				488AE26A190E0A6D006879C7 /* DALTestModel.m */,
 				488AE233190DEEA1006879C7 /* Images.xcassets */,
 				488AE21F190DEEA1006879C7 /* Supporting Files */,
+				4802545219C27C47007F00F0 /* DALTableViewController.h */,
+				4802545319C27C47007F00F0 /* DALTableViewController.m */,
+				4802544D19C27C22007F00F0 /* DALTableViewCell.h */,
+				4802544E19C27C22007F00F0 /* DALTableViewCell.m */,
+				4802544F19C27C22007F00F0 /* DALTableViewCell.xib */,
+				4802545519C27C67007F00F0 /* DALCollectionViewController.h */,
+				4802545619C27C67007F00F0 /* DALCollectionViewController.m */,
+				4802545819C27C81007F00F0 /* DALCollectionViewCell.h */,
+				4802545919C27C81007F00F0 /* DALCollectionViewCell.m */,
+				4802545D19C284E2007F00F0 /* DALCollectionVIewCell.xib */,
 			);
 			path = DALDebuggingDemo;
 			sourceTree = "<group>";
@@ -197,8 +232,14 @@
 				488AE259190DEF1E006879C7 /* NSProxy+DALDebugging.m */,
 				481ED1251935B86200D9C864 /* NSString+DALDebugging.h */,
 				481ED1261935B86200D9C864 /* NSString+DALDebugging.m */,
+				4802544719C278F9007F00F0 /* UICollectionReusableView+DALDebugging.h */,
+				4802544819C278F9007F00F0 /* UICollectionReusableView+DALDebugging.m */,
+				4802544A19C27977007F00F0 /* UINib+DALDebugging.h */,
+				4802544B19C27977007F00F0 /* UINib+DALDebugging.m */,
 				48F140561987299A00CFFF15 /* UIResponder+DALDebugging.h */,
 				48F140571987299A00CFFF15 /* UIResponder+DALDebugging.m */,
+				4802544419C270E6007F00F0 /* UITableViewCell+DALDebugging.h */,
+				4802544519C270E6007F00F0 /* UITableViewCell+DALDebugging.m */,
 				488AE25E190DEF1E006879C7 /* UIView+DALDebugging.h */,
 				488AE25F190DEF1E006879C7 /* UIView+DALDebugging.m */,
 				488AE260190DEF1E006879C7 /* UIWindow+DALDebugging.h */,
@@ -284,9 +325,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4802545119C27C22007F00F0 /* DALTableViewCell.xib in Resources */,
 				488AE22F190DEEA1006879C7 /* Main_iPad.storyboard in Resources */,
 				488AE234190DEEA1006879C7 /* Images.xcassets in Resources */,
 				488AE22C190DEEA1006879C7 /* Main_iPhone.storyboard in Resources */,
+				4802545E19C284E2007F00F0 /* DALCollectionVIewCell.xib in Resources */,
 				488AE223190DEEA1006879C7 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,16 +349,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4802544C19C27977007F00F0 /* UINib+DALDebugging.m in Sources */,
 				488AE267190DEF1E006879C7 /* UIView+DALDebugging.m in Sources */,
 				488AE229190DEEA1006879C7 /* DALAppDelegate.m in Sources */,
 				488AE225190DEEA1006879C7 /* main.m in Sources */,
 				48F140581987299A00CFFF15 /* UIResponder+DALDebugging.m in Sources */,
 				488AE264190DEF1E006879C7 /* NSProxy+DALDebugging.m in Sources */,
+				4802544919C278F9007F00F0 /* UICollectionReusableView+DALDebugging.m in Sources */,
 				488AE232190DEEA1006879C7 /* DALViewController.m in Sources */,
 				488AE262190DEF1E006879C7 /* DALIntrospection.m in Sources */,
 				481ED1271935B86200D9C864 /* NSString+DALDebugging.m in Sources */,
+				4802545019C27C22007F00F0 /* DALTableViewCell.m in Sources */,
+				4802545419C27C47007F00F0 /* DALTableViewController.m in Sources */,
+				4802545A19C27C81007F00F0 /* DALCollectionViewCell.m in Sources */,
+				4802545719C27C67007F00F0 /* DALCollectionViewController.m in Sources */,
 				488AE268190DEF1E006879C7 /* UIWindow+DALDebugging.m in Sources */,
 				488AE26B190E0A6D006879C7 /* DALTestModel.m in Sources */,
+				4802544619C270E6007F00F0 /* UITableViewCell+DALDebugging.m in Sources */,
 				488AE263190DEF1E006879C7 /* NSObject+DALDebugging.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

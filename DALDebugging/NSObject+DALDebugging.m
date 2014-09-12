@@ -32,18 +32,18 @@
 
 @implementation NSObject (DALDebugging)
 
-+ (void)load
-{
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-				
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_ivarDescription),				@selector(_ivarDescription));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_methodDescription),			@selector(_methodDescription));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_shortMethodDescription),		@selector(_shortMethodDescription));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL__ivarDescriptionForClass:),	@selector(__ivarDescriptionForClass:));
-		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL__methodDescriptionForClass:),	@selector(__methodDescriptionForClass:));
-	});
-}
+//+ (void)load
+//{
+//	static dispatch_once_t onceToken;
+//	dispatch_once(&onceToken, ^{
+//				
+//		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_ivarDescription),				@selector(_ivarDescription));
+//		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_methodDescription),			@selector(_methodDescription));
+//		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL_shortMethodDescription),		@selector(_shortMethodDescription));
+//		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL__ivarDescriptionForClass:),	@selector(__ivarDescriptionForClass:));
+//		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DAL__methodDescriptionForClass:),	@selector(__methodDescriptionForClass:));
+//	});
+//}
 
 - (id)DAL_ivarDescription
 {

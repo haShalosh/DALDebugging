@@ -1,6 +1,6 @@
 //
 //  UIResponder+DALDebugging.m
-//  DALDebuggingDemo
+//  DALDebugging
 //
 //  Created by Daniel Leber on 7/28/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.
@@ -134,7 +134,10 @@
 					{
 						if ([nextResponder respondsToSelector:@selector(valueForKey:)])
 						{
-							value = [nextResponder valueForKey:key];
+							if (![key isEqualToString:@"__content"])
+							{
+								value = [nextResponder valueForKey:key];
+							}
 						}
 						else
 						{

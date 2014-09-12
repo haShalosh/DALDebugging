@@ -1,8 +1,8 @@
 //
-//  UIResponder+DALDebugging.h
+//  UITableViewCell+DALDebugging.h
 //  DALDebugging
 //
-//  Created by Daniel Leber on 7/28/14.
+//  Created by Daniel Leber on 9/11/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,16 +28,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIResponder (DALDebugging)
+@interface UITableViewCell (DALDebugging)
 
-/// \brief Travels the next responder chain, logging when the value of any if their Ivars is this instance.
-- (NSString *)DALIvarNames;
-/// \brief Travels the next responder chain, logging when the value of any if their Properties is this instance.
-- (NSString *)DALPropertyNames;
+- (NSString *)DALNibName;
 
-// Convenience
-- (NSString *)ivarNames;
-- (NSString *)propertyNames;
+// convenience
+- (NSString *)nibName;
 
 @end
 
