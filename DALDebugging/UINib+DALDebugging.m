@@ -40,7 +40,7 @@
 	});
 }
 
-- (NSString *)DALNibName
+- (NSString *)DALName
 {
 	NSString *name = nil;
 	
