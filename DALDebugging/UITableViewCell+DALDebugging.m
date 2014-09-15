@@ -45,21 +45,17 @@
 {
 	NSString *name = nil;
 	
-	id nextResponder = [self nextResponder];
-	while (nextResponder)
+	id nextResponder = self;
+	while ((nextResponder = [nextResponder nextResponder]))
 	{
 		if (![nextResponder isKindOfClass:[UITableView class]])
-		{
-			nextResponder = [nextResponder nextResponder];
-		}
-		else
-		{
-#warning TODO Test
-			UITableView *tableView = nextResponder;
-			NSDictionary *nibMap = [tableView valueForKey:@"_nibMap"];
-			UINib *nib = nibMap[self.reuseIdentifier];
-			name = [nib DALName];
-		}
+			continue;
+		
+		UITableView *tableView = nextResponder;
+		NSDictionary *nibMap = [tableView valueForKey:@"_nibMap"];
+		UINib *nib = nibMap[self.reuseIdentifier];
+		name = [nib DALName];
+		break;
 	}
 	
 	return name;

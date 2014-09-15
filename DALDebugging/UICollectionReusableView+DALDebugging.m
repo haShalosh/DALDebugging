@@ -45,20 +45,17 @@
 {
 	NSString *name = nil;
 	
-	id nextResponder = [self nextResponder];
-	while (nextResponder)
+	id nextResponder = self;
+	while ((nextResponder = [nextResponder nextResponder]))
 	{
 		if (![nextResponder isKindOfClass:[UICollectionView class]])
-		{
-			nextResponder = [nextResponder nextResponder];
-		}
-		else
-		{
-			UICollectionView *collectionView = nextResponder;
-			NSDictionary *cellNibDict = [collectionView valueForKey:@"_cellNibDict"];
-			UINib *nib = cellNibDict[self.reuseIdentifier];
-			name = [nib DALName];
-		}
+			continue;
+		
+		UICollectionView *collectionView = nextResponder;
+		NSDictionary *cellNibDict = [collectionView valueForKey:@"_cellNibDict"];
+		UINib *nib = cellNibDict[self.reuseIdentifier];
+		name = [nib DALName];
+		break;
 	}
 	
 	return name;
