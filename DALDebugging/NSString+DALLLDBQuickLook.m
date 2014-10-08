@@ -1,9 +1,9 @@
 //
-//  UIView+DALDebugging.h
-//  DALDebugging
+//  NSString+DALLLDBQuickLook.m
+//  DALDebuggingDemo
 //
-//  Created by Daniel Leber on 10/19/13.
-//  Copyright (c) 2013 Daniel Leber. All rights reserved.
+//  Created by Daniel Leber on 10/8/14.
+//  Copyright (c) 2014 Daniel Leber. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to
@@ -24,26 +24,24 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
+#if DEBUG
 
-#import <UIKit/UIKit.h>
+#import "NSString+DALLLDBQuickLook.h"
+#import "NSObject+DALLLDBQuickLook.h"
 
-/*
- Notes:
- Implements -debugQuickLookObject, if not already. Will show a snapshot of the view when hovering the cursor over a view variable.
- -description will append the View Controller if it has one.
- */
-@interface UIView (DALDebugging)
+@implementation NSString (DALLLDBQuickLook)
 
-/// \brief The view controller whose view property is this instance.
-/// \return If nil, no view controller's view property is this instance.
-- (UIViewController *)DALViewController;
+- (NSData *)quickLookDebugData
+{
+	NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+	return data;
+}
 
-- (UIImage *)DALDebugQuickLookObject;
-
-// convenience
-- (UIViewController *)viewController;
-- (UIImage *)debugQuickLookObject;
+- (NSString *)quickLookFilename
+{
+	NSString *filename = [[super quickLookFilename] stringByAppendingPathExtension:@"txt"];
+	return filename;
+}
 
 @end
 

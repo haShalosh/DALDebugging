@@ -30,7 +30,6 @@
 #import "DALIntrospection.h"
 #import "DALRuntimeModification.h"
 
-// TODO: Implement telling Clang to ignore the warnings about methods not found (we're adding them in if necessary).
 @implementation NSProxy (DALDebugging)
 
 + (void)load

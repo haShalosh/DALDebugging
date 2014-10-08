@@ -1,9 +1,9 @@
 //
-//  UIView+DALDebugging.h
-//  DALDebugging
+//  UIView+DALLLDBQuickLook.h
+//  DALDebuggingDemo
 //
-//  Created by Daniel Leber on 10/19/13.
-//  Copyright (c) 2013 Daniel Leber. All rights reserved.
+//  Created by Daniel Leber on 10/8/14.
+//  Copyright (c) 2014 Daniel Leber. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to
@@ -29,21 +29,10 @@
 #import <UIKit/UIKit.h>
 
 /*
- Notes:
- Implements -debugQuickLookObject, if not already. Will show a snapshot of the view when hovering the cursor over a view variable.
- -description will append the View Controller if it has one.
+ *	For use with LLDB-QuickLook
+ *	https://github.com/ryanolsonk/LLDB-QuickLook
  */
-@interface UIView (DALDebugging)
-
-/// \brief The view controller whose view property is this instance.
-/// \return If nil, no view controller's view property is this instance.
-- (UIViewController *)DALViewController;
-
-- (UIImage *)DALDebugQuickLookObject;
-
-// convenience
-- (UIViewController *)viewController;
-- (UIImage *)debugQuickLookObject;
+@interface UIView (DALLLDBQuickLook)
 
 @end
 

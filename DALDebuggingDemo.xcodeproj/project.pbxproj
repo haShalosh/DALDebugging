@@ -17,6 +17,12 @@
 		4802545A19C27C81007F00F0 /* DALCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4802545919C27C81007F00F0 /* DALCollectionViewCell.m */; };
 		4802545E19C284E2007F00F0 /* DALCollectionVIewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4802545D19C284E2007F00F0 /* DALCollectionVIewCell.xib */; };
 		481ED1271935B86200D9C864 /* NSString+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 481ED1261935B86200D9C864 /* NSString+DALDebugging.m */; };
+		4869D86719E507C0008BCAC0 /* UIImage+DALDebugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4869D86619E507C0008BCAC0 /* UIImage+DALDebugging.m */; };
+		4869D87319E50BF9008BCAC0 /* UIImage+DALLLDBQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4869D87219E50BF9008BCAC0 /* UIImage+DALLLDBQuickLook.m */; };
+		4869D87619E50C02008BCAC0 /* UIView+DALLLDBQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4869D87519E50C02008BCAC0 /* UIView+DALLLDBQuickLook.m */; };
+		4869D87919E50D93008BCAC0 /* NSObject+DALLLDBQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4869D87819E50D93008BCAC0 /* NSObject+DALLLDBQuickLook.m */; };
+		4869D87C19E50FF2008BCAC0 /* NSData+DALLLDBQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4869D87B19E50FF2008BCAC0 /* NSData+DALLLDBQuickLook.m */; };
+		4869D87F19E5102B008BCAC0 /* NSString+DALLLDBQuickLook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4869D87E19E5102B008BCAC0 /* NSString+DALLLDBQuickLook.m */; };
 		488AE219190DEEA1006879C7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE218190DEEA1006879C7 /* Foundation.framework */; };
 		488AE21B190DEEA1006879C7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21A190DEEA1006879C7 /* CoreGraphics.framework */; };
 		488AE21D190DEEA1006879C7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488AE21C190DEEA1006879C7 /* UIKit.framework */; };
@@ -70,6 +76,18 @@
 		4802545D19C284E2007F00F0 /* DALCollectionVIewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DALCollectionVIewCell.xib; sourceTree = "<group>"; };
 		481ED1251935B86200D9C864 /* NSString+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DALDebugging.h"; sourceTree = "<group>"; };
 		481ED1261935B86200D9C864 /* NSString+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DALDebugging.m"; sourceTree = "<group>"; };
+		4869D86519E507C0008BCAC0 /* UIImage+DALDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DALDebugging.h"; sourceTree = "<group>"; };
+		4869D86619E507C0008BCAC0 /* UIImage+DALDebugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DALDebugging.m"; sourceTree = "<group>"; };
+		4869D87119E50BF9008BCAC0 /* UIImage+DALLLDBQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DALLLDBQuickLook.h"; sourceTree = "<group>"; };
+		4869D87219E50BF9008BCAC0 /* UIImage+DALLLDBQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DALLLDBQuickLook.m"; sourceTree = "<group>"; };
+		4869D87419E50C02008BCAC0 /* UIView+DALLLDBQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DALLLDBQuickLook.h"; sourceTree = "<group>"; };
+		4869D87519E50C02008BCAC0 /* UIView+DALLLDBQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DALLLDBQuickLook.m"; sourceTree = "<group>"; };
+		4869D87719E50D93008BCAC0 /* NSObject+DALLLDBQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DALLLDBQuickLook.h"; sourceTree = "<group>"; };
+		4869D87819E50D93008BCAC0 /* NSObject+DALLLDBQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DALLLDBQuickLook.m"; sourceTree = "<group>"; };
+		4869D87A19E50FF2008BCAC0 /* NSData+DALLLDBQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+DALLLDBQuickLook.h"; sourceTree = "<group>"; };
+		4869D87B19E50FF2008BCAC0 /* NSData+DALLLDBQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+DALLLDBQuickLook.m"; sourceTree = "<group>"; };
+		4869D87D19E5102B008BCAC0 /* NSString+DALLLDBQuickLook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DALLLDBQuickLook.h"; sourceTree = "<group>"; };
+		4869D87E19E5102B008BCAC0 /* NSString+DALLLDBQuickLook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DALLLDBQuickLook.m"; sourceTree = "<group>"; };
 		488AE215190DEEA1006879C7 /* DALDebuggingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DALDebuggingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		488AE218190DEEA1006879C7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		488AE21A190DEEA1006879C7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -234,6 +252,8 @@
 				481ED1261935B86200D9C864 /* NSString+DALDebugging.m */,
 				4802544719C278F9007F00F0 /* UICollectionReusableView+DALDebugging.h */,
 				4802544819C278F9007F00F0 /* UICollectionReusableView+DALDebugging.m */,
+				4869D86519E507C0008BCAC0 /* UIImage+DALDebugging.h */,
+				4869D86619E507C0008BCAC0 /* UIImage+DALDebugging.m */,
 				4802544A19C27977007F00F0 /* UINib+DALDebugging.h */,
 				4802544B19C27977007F00F0 /* UINib+DALDebugging.m */,
 				48F140561987299A00CFFF15 /* UIResponder+DALDebugging.h */,
@@ -244,6 +264,16 @@
 				488AE25F190DEF1E006879C7 /* UIView+DALDebugging.m */,
 				488AE260190DEF1E006879C7 /* UIWindow+DALDebugging.h */,
 				488AE261190DEF1E006879C7 /* UIWindow+DALDebugging.m */,
+				4869D87719E50D93008BCAC0 /* NSObject+DALLLDBQuickLook.h */,
+				4869D87819E50D93008BCAC0 /* NSObject+DALLLDBQuickLook.m */,
+				4869D87119E50BF9008BCAC0 /* UIImage+DALLLDBQuickLook.h */,
+				4869D87219E50BF9008BCAC0 /* UIImage+DALLLDBQuickLook.m */,
+				4869D87419E50C02008BCAC0 /* UIView+DALLLDBQuickLook.h */,
+				4869D87519E50C02008BCAC0 /* UIView+DALLLDBQuickLook.m */,
+				4869D87A19E50FF2008BCAC0 /* NSData+DALLLDBQuickLook.h */,
+				4869D87B19E50FF2008BCAC0 /* NSData+DALLLDBQuickLook.m */,
+				4869D87D19E5102B008BCAC0 /* NSString+DALLLDBQuickLook.h */,
+				4869D87E19E5102B008BCAC0 /* NSString+DALLLDBQuickLook.m */,
 			);
 			path = DALDebugging;
 			sourceTree = "<group>";
@@ -351,6 +381,8 @@
 			files = (
 				4802544C19C27977007F00F0 /* UINib+DALDebugging.m in Sources */,
 				488AE267190DEF1E006879C7 /* UIView+DALDebugging.m in Sources */,
+				4869D87F19E5102B008BCAC0 /* NSString+DALLLDBQuickLook.m in Sources */,
+				4869D87319E50BF9008BCAC0 /* UIImage+DALLLDBQuickLook.m in Sources */,
 				488AE229190DEEA1006879C7 /* DALAppDelegate.m in Sources */,
 				488AE225190DEEA1006879C7 /* main.m in Sources */,
 				48F140581987299A00CFFF15 /* UIResponder+DALDebugging.m in Sources */,
@@ -359,13 +391,17 @@
 				488AE232190DEEA1006879C7 /* DALViewController.m in Sources */,
 				488AE262190DEF1E006879C7 /* DALIntrospection.m in Sources */,
 				481ED1271935B86200D9C864 /* NSString+DALDebugging.m in Sources */,
+				4869D86719E507C0008BCAC0 /* UIImage+DALDebugging.m in Sources */,
+				4869D87619E50C02008BCAC0 /* UIView+DALLLDBQuickLook.m in Sources */,
 				4802545019C27C22007F00F0 /* DALTableViewCell.m in Sources */,
 				4802545419C27C47007F00F0 /* DALTableViewController.m in Sources */,
 				4802545A19C27C81007F00F0 /* DALCollectionViewCell.m in Sources */,
 				4802545719C27C67007F00F0 /* DALCollectionViewController.m in Sources */,
+				4869D87C19E50FF2008BCAC0 /* NSData+DALLLDBQuickLook.m in Sources */,
 				488AE268190DEF1E006879C7 /* UIWindow+DALDebugging.m in Sources */,
 				488AE26B190E0A6D006879C7 /* DALTestModel.m in Sources */,
 				4802544619C270E6007F00F0 /* UITableViewCell+DALDebugging.m in Sources */,
+				4869D87919E50D93008BCAC0 /* NSObject+DALLLDBQuickLook.m in Sources */,
 				488AE263190DEF1E006879C7 /* NSObject+DALDebugging.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
