@@ -69,18 +69,11 @@
 					id value = nil;
 					@try
 					{
-						if ([nextResponder respondsToSelector:@selector(valueForKey:)])
-						{
-							value = [nextResponder valueForKey:key];
-						}
-						else
-						{
-							value = object_getIvar(nextResponder, anIvar);
-						}
+						value = object_getIvar(nextResponder, anIvar);
 					}
 					@catch (NSException *exception)
 					{
-#if DEMO
+#if DAL_DEBUGGING_DEMO
 						NSLog(@"Error! %@", exception);
 #endif
 					}
@@ -129,32 +122,22 @@
 				{
 					NSString *key = @(property_getName(aProperty));
 					
+					char *getter = property_copyAttributeValue(aProperty, "G");
+					if (getter)
+					{
+						key = @(getter);
+						
+						free(getter);
+					}
+					
 					id value = nil;
 					@try
 					{
-						if ([nextResponder respondsToSelector:@selector(valueForKey:)])
-						{
-							if (![key isEqualToString:@"__content"])
-							{
-								value = [nextResponder valueForKey:key];
-							}
-						}
-						else
-						{
-							char *getter = property_copyAttributeValue(aProperty, "G");
-							if (getter)
-							{
-								key = @(getter);
-								
-								free(getter);
-							}
-							
-							value = objc_msgSend(nextResponder, NSSelectorFromString(key));
-						}
+						value = ((id (*)(id, SEL))objc_msgSend)(nextResponder, NSSelectorFromString(key));
 					}
 					@catch (NSException *exception)
 					{
-#if DEMO
+#if DAL_DEBUGGING_DEMO
 						NSLog(@"Error! %@", exception);
 #endif
 					}

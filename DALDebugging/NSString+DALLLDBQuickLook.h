@@ -28,6 +28,10 @@
 
 #import <Foundation/Foundation.h>
 
+/*
+ *	For use with LLDB-QuickLook
+ *	https://github.com/ryanolsonk/LLDB-QuickLook
+ */
 @interface NSString (DALLLDBQuickLook)
 
 @end

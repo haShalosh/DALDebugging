@@ -596,7 +596,7 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 						
 						description = string;
 					}
-#if DEMO
+#if DAL_DEBUGGING_DEMO
 					else
 					{
 						NSLog(@"*** Error! Unable to parse: %s", typeEncoding);
@@ -607,7 +607,7 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 				{
 					description = @"^block";
 				}
-#if DEMO
+#if DAL_DEBUGGING_DEMO
 				else
 				{
 					NSLog(@"*** Error! Unable to parse: %s", typeEncoding);
@@ -722,7 +722,7 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 					NSRange range = NSMakeRange(offset, equalsSignRange.location - offset);
 					description = [string substringWithRange:range];
 				}
-#if DEMO
+#if DAL_DEBUGGING_DEMO
 				else
 				{
 					NSLog(@"*** Error! Unable to parse: %s", typeEncoding);
@@ -755,7 +755,7 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 					break;
 					
 				default:
-#if DEMO
+#if DAL_DEBUGGING_DEMO
 					NSLog(@"Warning! Uncaught type: %c", firstChar);
 #endif
 					break;
@@ -813,7 +813,7 @@ id DAL___typeEncodingDescription(const char *typeEncoding)
 		case 'D': // +[PFUbiquityBaseline requiredFractionOfDiskSpaceUsedForLogs];
 		case 'R': // -[_UIViewServiceSession __requestConnectionToDeputyOfClass:fromHostObject:replyHandler:];
 		default:
-#if DEMO
+#if DAL_DEBUGGING_DEMO
 			NSLog(@"*** unsupported type: %s", typeEncoding);
 #endif
 			break;
