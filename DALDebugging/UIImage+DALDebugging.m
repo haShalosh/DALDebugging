@@ -1,6 +1,6 @@
 //
 //  UIImage+DALDebugging.m
-//  DALDebuggingDemo
+//  DALDebugging
 //
 //  Created by Daniel Leber on 10/8/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.

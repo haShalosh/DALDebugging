@@ -40,6 +40,10 @@
 		
 		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALIvarNames), @selector(ivarNames));
 		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALPropertyNames), @selector(propertyNames));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALNextCollectionViewInResponderChain), @selector(nextCollectionViewInResponderChain));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALNextTableViewInResponderChain), @selector(nextTableViewInResponderChain));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALNextCollectionOrTableViewInResponderChain), @selector(nextCollectionOrTableViewInResponderChain));
+		DALAddImplementationOfSelectorToSelectorIfNeeded(self, @selector(DALNextCellInResponderChain), @selector(nextCellInResponderChain));
 	});
 }
 
@@ -64,8 +68,6 @@
 				const char *typeEncoding = ivar_getTypeEncoding(anIvar);
 				if (typeEncoding[0] == _C_ID)
 				{
-					NSString *key = @(ivar_getName(anIvar));
-					
 					id value = nil;
 					@try
 					{
@@ -80,7 +82,8 @@
 					
 					if (value == self)
 					{
-						[description appendFormat:@"\t'%@' in <%@: %p> (declared in %@)\n", key, NSStringFromClass([nextResponder class]), nextResponder, NSStringFromClass(aClass)];
+						NSString *key = @(ivar_getName(anIvar));
+						[description appendFormat:@"\t'%@' in <%@: %p> (declared in class: %@)\n", key, NSStringFromClass([nextResponder class]), nextResponder, NSStringFromClass(aClass)];
 					}
 				}
 			}
@@ -133,7 +136,11 @@
 					id value = nil;
 					@try
 					{
-						value = ((id (*)(id, SEL))objc_msgSend)(nextResponder, NSSelectorFromString(key));
+						SEL selector = NSSelectorFromString(key);
+						if ([nextResponder respondsToSelector:selector])
+						{
+							value = ((id (*)(id, SEL))objc_msgSend)(nextResponder, selector);
+						}
 					}
 					@catch (NSException *exception)
 					{
@@ -144,7 +151,7 @@
 					
 					if (value == self)
 					{
-						[description appendFormat:@"\t'%@' in <%@: %p> (declared in %@)\n", key, NSStringFromClass([nextResponder class]), nextResponder, NSStringFromClass(aClass)];
+						[description appendFormat:@"\t'%@' in <%@: %p> (declared in class: %@)\n", key, NSStringFromClass([nextResponder class]), nextResponder, NSStringFromClass(aClass)];
 					}
 				}
 				
@@ -166,6 +173,46 @@
 	}
 	
 	return description;
+}
+
+- (id)DAL_nextObjectOfClassInResponderChain:(NSArray *)classes
+{
+	id object = nil;
+	
+	UIResponder *nextResponder = self;
+	while ((nextResponder = [nextResponder nextResponder]))
+	{
+		for (Class aClass in classes)
+		{
+			if ([nextResponder isKindOfClass:aClass])
+			{
+				object = nextResponder;
+				break;
+			}
+		}
+	}
+	
+	return object;
+}
+
+- (UICollectionView *)DALNextCollectionViewInResponderChain
+{
+	return [self DAL_nextObjectOfClassInResponderChain:@[[UICollectionView class]]];
+}
+
+- (UITableView *)DALNextTableViewInResponderChain
+{
+	return [self DAL_nextObjectOfClassInResponderChain:@[[UITableView class]]];
+}
+
+- (id)DALNextCollectionOrTableViewInResponderChain
+{
+	return [self DAL_nextObjectOfClassInResponderChain:@[[UICollectionView class], [UITableView class]]];
+}
+
+- (id)DALNextCellInResponderChain
+{
+	return [self DAL_nextObjectOfClassInResponderChain:@[[UICollectionReusableView class], [UITableViewCell class]]];
 }
 
 @end

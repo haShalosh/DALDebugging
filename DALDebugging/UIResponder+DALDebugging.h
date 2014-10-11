@@ -35,9 +35,22 @@
 /// \brief Travels the next responder chain, logging when the value of any if their Properties is this instance.
 - (NSString *)DALPropertyNames;
 
+
+/// \brief Travels the next responder chain looking for the first object that is, or a subclass of, the specified classes.
+- (id)DAL_nextObjectOfClassInResponderChain:(NSArray *)classes; // An array of Classes.
+// Convenience methods
+- (UICollectionView *)DALNextCollectionViewInResponderChain;
+- (UITableView *)DALNextTableViewInResponderChain;
+- (id)DALNextCollectionOrTableViewInResponderChain;
+- (id)DALNextCellInResponderChain; // UICollectionReusableView or UITableViewCell
+
 // Convenience
 - (NSString *)ivarNames;
 - (NSString *)propertyNames;
+- (UICollectionView *)nextCollectionViewInResponderChain;
+- (UITableView *)nextTableViewInResponderChain;
+- (id)nextCollectionOrTableViewInResponderChain;
+- (id)nextCellInResponderChain;
 
 @end
 

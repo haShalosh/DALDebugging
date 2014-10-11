@@ -1,6 +1,6 @@
 //
 //  NSObject+DALLLDBQuickLook.m
-//  DALDebuggingDemo
+//  DALDebugging
 //
 //  Created by Daniel Leber on 10/8/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.
@@ -35,9 +35,9 @@
 	return nil;
 }
 
-- (NSString *)quickLookFilename
+- (NSString *)quickLookDebugFilename
 {
-	NSString *filename = [NSString stringWithFormat:@"%@ %@ <%p>", NSStringFromClass([self class]), [NSDate date], self];
+	NSString *filename = [NSString stringWithFormat:@"Quicklook of %@ on %@ <%p>", NSStringFromClass([self class]), [[NSDate date] descriptionWithLocale:[NSLocale currentLocale]], self];
 	return filename;
 }
 

@@ -1,6 +1,6 @@
 //
 //  UIImage+DALLLDBQuickLook.m
-//  DALDebuggingDemo
+//  DALDebugging
 //
 //  Created by Daniel Leber on 10/8/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.
@@ -37,9 +37,9 @@
 	return data;
 }
 
-- (NSString *)quickLookFilename
+- (NSString *)quickLookDebugFilename
 {
-	NSString *filename = [[super quickLookFilename] stringByAppendingPathExtension:@"png"];
+	NSString *filename = [[super quickLookDebugFilename] stringByAppendingPathExtension:@"png"];
 	return filename;
 }
 

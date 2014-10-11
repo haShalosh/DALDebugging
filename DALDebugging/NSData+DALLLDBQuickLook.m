@@ -1,6 +1,6 @@
 //
 //  NSData+DALLLDBQuickLook.m
-//  DALDebuggingDemo
+//  DALDebugging
 //
 //  Created by Daniel Leber on 10/8/14.
 //  Copyright (c) 2014 Daniel Leber. All rights reserved.
@@ -36,9 +36,9 @@
 	return self;
 }
 
-- (NSString *)quickLookFilename
+- (NSString *)quickLookDebugFilename
 {
-	NSString *filename = [[super quickLookFilename] stringByAppendingPathExtension:@"bin"];
+	NSString *filename = [[super quickLookDebugFilename] stringByAppendingPathExtension:@"bin"];
 	return filename;
 }
 
