@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
                    * Finding the property name(s) of a UIResponder (e.g., UIView, UIButton, UIViewController).
                    * A re-implementation of Apple's NSObject debugging methods so they can be used on NSProxy, iOS pre-7.x and Mac (-[NSObject _ivarDescription], -[NSObject _methodDescription] and -[NSObject _shortMethodDescription])
                    * Describe a bitmask (NSUInteger).
-				   * Categories for LLDB Quicklook: https://github.com/ryanolsonk/LLDB-QuickLook
+                   * Categories for LLDB Quicklook: https://github.com/ryanolsonk/LLDB-QuickLook
                    DESC
   s.homepage     = "https://github.com/haShalosh/DALDebugging"
   s.license      = { :type => "MIT", :file => "LICENSE" }
