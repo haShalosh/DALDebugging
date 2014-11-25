@@ -5,6 +5,12 @@ That’s up to you, but I find it helpful in debugging.
 
 —
 
+Can I use this as a CocoaPod?
+Yes, add the following line to your Podfile:
+pod 'DALDebugging', :git => 'https://github.com/haShalosh/DALDebugging.git'
+
+—
+
 What can it do?
 
 ApplePrivate.h
@@ -47,4 +53,3 @@ That’s good and all, but what if I don’t want to or can’t use those. What 
 TODO:
 
 • Make this a .dylib so it can be loaded while debugging
-• Create a .podspec so it can be brought in through a `pod update`
