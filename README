@@ -1,7 +1,8 @@
 DALDebugging
 
-Why would I want to use this?
-That’s up to you, but I find it helpful in debugging.
+What is this?
+These are functions and methods I've created to help me with debugging.
+Also useful are macros for LLDB: https://gist.github.com/haShalosh/3af8ec00b26cae794ce2
 
 —
 
