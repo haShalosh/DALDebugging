@@ -24,9 +24,9 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
-
 #import <Foundation/Foundation.h>
+
+#if DEBUG
 
 @interface NSObject (DALDebugging)
 

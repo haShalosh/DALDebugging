@@ -24,12 +24,12 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
-
 #import "DALIntrospection.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import "ApplePrivate.h"
+
+#if DEBUG
 
 #define DAL_C_INOUT		'N'
 #define DAL_C_OUT		'o'

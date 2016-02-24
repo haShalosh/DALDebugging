@@ -24,11 +24,11 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import "UIWindow+DALDebugging.h"
 #import "DALRuntimeModification.h"
 #import "ApplePrivate.h"
+
+#if TARGET_OS_IPHONE && DEBUG
 
 @implementation UIWindow (DALDebugging)
 

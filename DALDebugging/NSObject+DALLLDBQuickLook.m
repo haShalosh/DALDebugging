@@ -24,9 +24,9 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
-
 #import "NSObject+DALLLDBQuickLook.h"
+
+#if DEBUG
 
 @implementation NSObject (DALLLDBQuickLook)
 

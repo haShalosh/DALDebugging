@@ -24,10 +24,10 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
-
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+
+#if DEBUG
 
 #pragma mark Class
 OBJC_EXPORT id DALClassIvarDescription(Class aClass);

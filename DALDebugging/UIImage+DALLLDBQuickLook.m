@@ -24,10 +24,10 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import "UIImage+DALLLDBQuickLook.h"
 #import "NSObject+DALLLDBQuickLook.h"
+
+#if TARGET_OS_IPHONE && DEBUG
 
 @implementation UIImage (DALLLDBQuickLook)
 

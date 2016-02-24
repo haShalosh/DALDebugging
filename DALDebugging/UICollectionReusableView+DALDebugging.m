@@ -24,11 +24,11 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import "UICollectionReusableView+DALDebugging.h"
 #import "DALRuntimeModification.h"
 #import "UINib+DALDebugging.h"
+
+#if TARGET_OS_IPHONE && DEBUG
 
 @implementation UICollectionReusableView (DALDebugging)
 

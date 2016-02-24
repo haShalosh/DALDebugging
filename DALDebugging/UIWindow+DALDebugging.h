@@ -24,9 +24,9 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import <UIKit/UIKit.h>
+
+#if TARGET_OS_IPHONE && DEBUG
 
 // Note: Use [[UIWindow keyWindow] recursiveDescription] to get a text representation of the view hierarchy.
 

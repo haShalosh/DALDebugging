@@ -24,10 +24,10 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import "UINib+DALDebugging.h"
 #import "DALRuntimeModification.h"
+
+#if TARGET_OS_IPHONE && DEBUG
 
 @implementation UINib (DALDebugging)
 

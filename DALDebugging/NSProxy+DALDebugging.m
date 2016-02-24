@@ -24,11 +24,11 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
-
 #import "NSProxy+DALDebugging.h"
 #import "DALIntrospection.h"
 #import "DALRuntimeModification.h"
+
+#if DEBUG
 
 @implementation NSProxy (DALDebugging)
 

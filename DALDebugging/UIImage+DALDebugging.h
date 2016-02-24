@@ -25,9 +25,9 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import <UIKit/UIKit.h>
+
+#if TARGET_OS_IPHONE && DEBUG
 
 /*
  *	Notes:

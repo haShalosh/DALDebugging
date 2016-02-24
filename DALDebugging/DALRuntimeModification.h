@@ -26,10 +26,10 @@
 //  Reference: http://nshipster.com/method-swizzling/
 //
 
-#if DEBUG
-
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+
+#if DEBUG
 
 static inline void DALAddImplementationOfSelectorToSelectorIfNeeded(Class aClass, SEL implementedSelector, SEL toSelector)
 {

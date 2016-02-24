@@ -24,10 +24,10 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
-
 #import "NSData+DALLLDBQuickLook.h"
 #import "NSObject+DALLLDBQuickLook.h"
+
+#if DEBUG
 
 @implementation NSData (DALLLDBQuickLook)
 

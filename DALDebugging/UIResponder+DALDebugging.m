@@ -24,12 +24,12 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import "UIResponder+DALDebugging.h"
 #import "DALRuntimeModification.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+
+#if TARGET_OS_IPHONE && DEBUG
 
 @implementation UIResponder (DALDebugging)
 

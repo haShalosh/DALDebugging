@@ -24,9 +24,9 @@
 //  IN THE SOFTWARE.
 //
 
-#if TARGET_OS_IPHONE && DEBUG
-
 #import <UIKit/UIKit.h>
+
+#if TARGET_OS_IPHONE && DEBUG
 
 #if __IPHONE_7_0
 @interface NSObject (DALApplePrivate_iOS7)

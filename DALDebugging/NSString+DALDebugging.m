@@ -24,10 +24,10 @@
 //  IN THE SOFTWARE.
 //
 
-#if DEBUG
-
 #import "NSString+DALDebugging.h"
 #import "DALRuntimeModification.h"
+
+#if DEBUG
 
 @implementation NSString (DALDebugging)
 
